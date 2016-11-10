@@ -14,6 +14,9 @@ public class Physique {
     private double temps = 0;
     private double temps2 = 0;
     private double gravite;
+    private boolean pressed = false;
+    private boolean rotationDroite = false;
+    private boolean rotationGauche = false;
 
 
 
@@ -66,5 +69,49 @@ public class Physique {
 
     public double getGravite() {
         return gravite;
+    }
+
+    public void setVaisseau(Vaisseau vaisseau) {
+        this.vaisseau = vaisseau;
+    }
+
+    public void setPlanete(Planete planete) {
+        this.planete = planete;
+    }
+
+    public void setTime(Timeline time) {
+        this.time = time;
+    }
+
+    public void setTemps(double temps) {
+        this.temps = temps;
+    }
+
+    public void setTemps2(double temps2) {
+        this.temps2 = temps2;
+    }
+
+    public boolean isPressed() {
+        return pressed;
+    }
+
+    public void setPressed(boolean pressed) {
+        this.pressed = pressed;
+    }
+
+    public boolean isRotationDroite() {
+        return rotationDroite;
+    }
+
+    public void setRotationDroite(boolean rotationDroite) {
+        this.rotationDroite = rotationDroite;
+    }
+
+    public boolean isRotationGauche() {
+        return rotationGauche;
+    }
+
+    public void setRotationgauche(boolean rotationGauche) {
+        this.rotationGauche = rotationGauche;
     }
 }

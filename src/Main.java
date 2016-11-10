@@ -1,3 +1,4 @@
+import Controller.Manette;
 import Controller.Physique;
 import Model.Vaisseau;
 import View.Visuel;
@@ -17,6 +18,9 @@ public class Main extends Application {
 
         Vaisseau vaisseau = new Vaisseau();
         Physique physique = new Physique(vaisseau);
+        Manette manette = new Manette();
+
+        manette.setKeys();
 
         Group root = new Group();
         Scene jeux = new Scene(root, 1366, 768);
