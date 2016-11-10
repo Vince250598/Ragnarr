@@ -15,7 +15,7 @@ public class Main extends Application {
         primaryStage.show();
 
         Visuel v = new Visuel();
-        root.getChildren().add(v.getRocket());
+        v.loaderSol(root);
     }
 
 
