@@ -9,11 +9,9 @@ public class Vaisseau {
     private double Y;
     private double X;
     private double carburant;
-    private ImageView image;
-    private Bounds BV;
+    private Bounds BV;         //setter les bounds dans le collider
 
-    public Vaisseau(ImageView iv){
-        this.image = iv;
+    public Vaisseau() {
         this.vitesseX = 0;
         this.vitesseY = 0;
         this.X = 650;
@@ -23,10 +21,6 @@ public class Vaisseau {
 
     public Bounds getBV() {
         return BV;
-    }
-
-    public ImageView getImage() {
-        return image;
     }
 
     public double getVitesseY() {
