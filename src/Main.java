@@ -25,9 +25,7 @@ public class Main extends Application {
         primaryStage.show();
 
         Visuel v = new Visuel();
-<<<<<<< HEAD
         v.loaderSol(root);
-=======
         root.getChildren().add(v.getRocket());
 
         Timeline deplacement = new Timeline(new KeyFrame(Duration.millis(15), a -> {
@@ -35,7 +33,6 @@ public class Main extends Application {
         }));
         deplacement.setCycleCount(Animation.INDEFINITE);
         deplacement.play();
->>>>>>> 4df97e58db6edcba38fe28ec1db7d149678b1d7b
     }
 
 
