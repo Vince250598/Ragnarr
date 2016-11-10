@@ -18,15 +18,16 @@ public class Main extends Application {
 
         Vaisseau vaisseau = new Vaisseau();
         Physique physique = new Physique(vaisseau);
-        Manette manette = new Manette();
 
-        manette.setKeys();
 
         Group root = new Group();
         Scene jeux = new Scene(root, 1366, 768);
         primaryStage.setTitle("Ragnarr");
         primaryStage.setScene(jeux);
         primaryStage.show();
+
+        Manette manette = new Manette(jeux, physique);
+        manette.setKeys();
 
         Visuel v = new Visuel();
         v.loaderSol(root);

@@ -6,7 +6,9 @@ public class Manette {
     Scene scene;
     Physique physique;
 
-    public Manette() {
+    public Manette(Scene scene, Physique physique) {
+        this.scene = scene;
+        this.physique = physique;
     }
 
     public void setKeys() {

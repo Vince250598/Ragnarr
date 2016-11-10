@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Planete;
 import Model.Vaisseau;
+import View.Visuel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,6 +18,7 @@ public class Physique {
     private boolean pressed = false;
     private boolean rotationDroite = false;
     private boolean rotationGauche = false;
+    private Visuel visuel;
 
 
 
@@ -30,6 +32,7 @@ public class Physique {
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
         setGravite(getPlanete().getGRAVITE());
+        this.visuel = new Visuel();
     }
 
     public double calculVitesseY() {
@@ -40,6 +43,10 @@ public class Physique {
     public double calculPosY() {
         double depY = (calculVitesseY() * temps+0.5 * getPlanete().getGRAVITE() * Math.pow(temps, 2));
         vaisseau.setY(vaisseau.getY() + depY);
+        if (isRotationDroite())
+            visuel.getRocket().setRotate(visuel.getRocket().getRotate() + 1);
+        if (isRotationGauche())
+            visuel.getRocket().setRotate(visuel.getRocket().getRotate() - 1);
         return vaisseau.getY();
     }
 
