@@ -29,6 +29,7 @@ public class Main extends Application {
         primaryStage.show();
 
         Visuel v = new Visuel();
+        v.loaderSol(root);
         root.getChildren().add(v.getRocket());
 
         Timeline deplacement = new Timeline(new KeyFrame(Duration.millis(15), a -> {
