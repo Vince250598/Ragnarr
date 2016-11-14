@@ -14,12 +14,11 @@ public class Physique {
     private Timeline time;
     private double temps = 0;
     private double temps2 = 0;
-    private double gravite;
+    private double accel;
     private boolean pressed = false;
     private boolean rotationDroite = false;
     private boolean rotationGauche = false;
     private Visuel visuel;
-
 
 
     public Physique(Vaisseau v) {
@@ -31,31 +30,47 @@ public class Physique {
         planete = new Planete();
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
-        setGravite(getPlanete().getGRAVITE());
+        setAccel(getPlanete().getGRAVITE());
         this.visuel = new Visuel();
     }
 
     public double calculVitesseY() {
-        getVaisseau().setVitesseY(getVaisseau().getVitesseY() + getPlanete().getGRAVITE() * temps2);
+        if (isPressed())
+            setAccel(getPlanete().getGRAVITE() - 0.06);
+        else setAccel(getPlanete().getGRAVITE());
+        getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccel() * temps2) /** Math.cos(visuel.getRocket().getRotate())*/);
         return getVaisseau().getVitesseY();
     }
 
     public double calculPosY() {
-        double depY = (calculVitesseY() * temps+0.5 * getPlanete().getGRAVITE() * Math.pow(temps, 2));
+        double depY = (calculVitesseY() * temps + 0.5 * getAccel() /** Math.cos(visuel.getRocket().getRotate())*/ * Math.pow(temps, 2));
         vaisseau.setY(vaisseau.getY() + depY);
         if (isRotationDroite())
-            visuel.getRocket().setRotate(visuel.getRocket().getRotate() + 1);
+            System.out.println("tourne");// visuel.getRocket().setRotate(visuel.getRocket().getRotate() + 1);
         if (isRotationGauche())
             visuel.getRocket().setRotate(visuel.getRocket().getRotate() - 1);
         return vaisseau.getY();
+    }
+
+    public double calculVitesseX() {
+        if (visuel.getRocket().getRotate() != 0) {
+            vaisseau.setVitesseX(vaisseau.getVitesseX() + (getAccel() * temps2) /** Math.sin(visuel.getRocket().getRotate())*/);
+        }
+        return vaisseau.getVitesseX();
+    }
+
+    public double calculPosX(){
+        double depX = (calculVitesseX() * temps + 0.5 * (getAccel() /** Math.sin(visuel.getRocket().getRotate()) * Math.pow(temps, 2)*/));
+        vaisseau.setX(vaisseau.getVitesseX() + depX);
+        return vaisseau.getX();
     }
 
     public Vaisseau getVaisseau() {
         return vaisseau;
     }
 
-    public void setGravite(double gravite) {
-        this.gravite = gravite;
+    public void setAccel(double accel) {
+        this.accel = accel;
     }
 
     public Planete getPlanete() {
@@ -74,8 +89,8 @@ public class Physique {
         return temps2;
     }
 
-    public double getGravite() {
-        return gravite;
+    public double getAccel() {
+        return accel;
     }
 
     public void setVaisseau(Vaisseau vaisseau) {
@@ -118,7 +133,7 @@ public class Physique {
         return rotationGauche;
     }
 
-    public void setRotationgauche(boolean rotationGauche) {
+    public void setRotationGauche(boolean rotationGauche) {
         this.rotationGauche = rotationGauche;
     }
 }

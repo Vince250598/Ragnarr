@@ -29,12 +29,13 @@ public class Main extends Application {
         Manette manette = new Manette(jeux, physique);
         manette.setKeys();
 
-        Visuel v = new Visuel();
-        v.loaderSol(root);
-        root.getChildren().add(v.getRocket());
+        Visuel visuel = new Visuel();
+        visuel.loaderSol(root);
+        root.getChildren().add(visuel.getRocket());
 
         Timeline deplacement = new Timeline(new KeyFrame(Duration.millis(15), a -> {
-            v.getRocket().setTranslateY(physique.calculPosY());
+            visuel.getRocket().setTranslateY(physique.calculPosY());
+            visuel.getRocket().setTranslateX(physique.calculPosX());
         }));
         deplacement.setCycleCount(Animation.INDEFINITE);
         deplacement.play();

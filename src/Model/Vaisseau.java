@@ -1,7 +1,6 @@
 package Model;
 
 import javafx.geometry.Bounds;
-import javafx.scene.image.ImageView;
 
 public class Vaisseau {
     private double vitesseY;
@@ -12,9 +11,9 @@ public class Vaisseau {
     private Bounds BV;         //setter les bounds dans le collider
 
     public Vaisseau() {
-        this.vitesseX = 0;
+        this.vitesseX = 75;
         this.vitesseY = 0;
-        this.X = 650;
+        this.X = 50;
         this.Y = 50;
         this.carburant = 1000;
     }

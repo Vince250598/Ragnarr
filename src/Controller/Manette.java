@@ -20,7 +20,7 @@ public class Manette {
                     physique.setPressed(true);
                     break;
                 case LEFT:
-                    physique.setRotationgauche(true);
+                    physique.setRotationGauche(true);
                     break;
                 case RIGHT:
                     physique.setRotationDroite(true);
@@ -36,7 +36,7 @@ public class Manette {
                     physique.setPressed(false);
                     break;
                 case LEFT:
-                    physique.setRotationgauche(false);
+                    physique.setRotationGauche(false);
                     break;
                 case RIGHT:
                     physique.setRotationDroite(false);

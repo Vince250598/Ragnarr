@@ -1,5 +1,6 @@
 package View;
 
+import Model.Vaisseau;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -12,12 +13,15 @@ public class Visuel {
 
     private Vector<Point2D> listePoints = new Vector<>();
     private Vector<Line> sol = new Vector<>();
-    Image img = new Image(getClass().getResource("/Ressources/rocket.png").toString());
+    private Image img = new Image(getClass().getResource("/Ressources/rocket.png").toString());
     private ImageView rocket = new ImageView(img);
+    private Vaisseau vaisseau = new Vaisseau();
 
     public Visuel() {
         getRocket().setScaleX(0.7);
         getRocket().setScaleY(0.7);
+        getRocket().setX(vaisseau.getX());
+        getRocket().setY(vaisseau.getY());
     }
 
     public ImageView getRocket() {
