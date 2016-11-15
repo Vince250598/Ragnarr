@@ -13,7 +13,7 @@ public class Vaisseau {
     public Vaisseau() {
         this.vitesseX = 0;
         this.vitesseY = 0;
-        this.X = 700;
+        this.X = 200;
         this.Y = 50;
         this.carburant = 1000;
     }
