@@ -16,8 +16,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        Visuel visuel = new Visuel();
         Vaisseau vaisseau = new Vaisseau();
-        Physique physique = new Physique(vaisseau);
+        Physique physique = new Physique(vaisseau, visuel);
 
 
         Group root = new Group();
@@ -29,7 +30,6 @@ public class Main extends Application {
         Manette manette = new Manette(jeux, physique);
         manette.setKeys();
 
-        Visuel visuel = new Visuel();
         visuel.loaderSol(root);
         root.getChildren().add(visuel.getRocket());
 

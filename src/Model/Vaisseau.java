@@ -11,9 +11,9 @@ public class Vaisseau {
     private Bounds BV;         //setter les bounds dans le collider
 
     public Vaisseau() {
-        this.vitesseX = 75;
+        this.vitesseX = 0;
         this.vitesseY = 0;
-        this.X = 50;
+        this.X = 700;
         this.Y = 50;
         this.carburant = 1000;
     }
