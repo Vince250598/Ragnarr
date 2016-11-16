@@ -36,10 +36,12 @@ public class Physique {
 
     public double calculVitesseY() {
         if (isPressed()) {
-            setAccelY(getPlanete().getGRAVITE() - 0.02);
-            getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY() * temps2));
+            setAccelY(getPlanete().getGRAVITE() - 0.06);
+            /*setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
+            setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));*/
+            getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY()));
         } else setAccelY(getPlanete().getGRAVITE());
-        getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY() * temps2));
+        getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY()));
         return getVaisseau().getVitesseY();
     }
 
@@ -48,17 +50,19 @@ public class Physique {
             visuel.getRocket().setRotate(visuel.getRocket().getRotate() + 1);
             setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
             setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));
-        } else if (isRotationGauche())
+        } else if (isRotationGauche()) {
             visuel.getRocket().setRotate(visuel.getRocket().getRotate() - 1);
-        setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
-        setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));          //gosser la rotation et les vitesses
+            setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
+            setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));         //gosser la rotation et les vitesses
+        }
+        System.out.println(accelX);
         visuel.getRocket().setY(visuel.getRocket().getY() + calculVitesseY());
         return visuel.getRocket().getY();
     }
 
     public double calculVitesseX() {
         if (isPressed()) {
-            vaisseau.setVitesseX(vaisseau.getVitesseX() + (getAccelX() * temps2));
+            vaisseau.setVitesseX(vaisseau.getVitesseX() + getAccelX());
             return vaisseau.getVitesseX();
         } else
             return vaisseau.getVitesseX();
@@ -66,7 +70,6 @@ public class Physique {
     }
 
     public double calculPosX() {
-        System.out.println(visuel.getRocket().getX());
         visuel.getRocket().setX(visuel.getRocket().getX() + calculVitesseX());
         return visuel.getRocket().getX();
     }
