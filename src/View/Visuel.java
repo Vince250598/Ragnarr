@@ -23,9 +23,10 @@ public class Visuel {
     private VBox info = new VBox(5);
     private Label vitesseX = new Label("Vitesse en X: " + vaisseau.getVitesseX());
     private Label vitesseY = new Label("Vitesse en Y: " + vaisseau.getVitesseY());
+    private Label angle = new Label("Angle du vaisseau: " + vaisseau.getAngle());
     private HBox essence = new HBox(5);
     private Label carburant = new Label("Carburant:");
-    private ProgressBar niveauEssence = new ProgressBar(vaisseau.getCarburant() / 350);
+    private ProgressBar niveauEssence = new ProgressBar(vaisseau.getCarburant() / vaisseau.getCAPACITE_CARB());
 
     public Visuel() {
         getRocket().setScaleX(0.7);
@@ -33,7 +34,7 @@ public class Visuel {
         getRocket().setX(vaisseau.getX());
         getRocket().setY(vaisseau.getY());
         essence.getChildren().addAll(carburant, niveauEssence);
-        info.getChildren().addAll(vitesseY, vitesseX, essence);
+        info.getChildren().addAll(vitesseY, vitesseX, angle, essence);
     }
 
     public VBox getInfo() {
@@ -46,6 +47,10 @@ public class Visuel {
 
     public Label getVitesseY() {
         return vitesseY;
+    }
+
+    public Label getAngle() {
+        return angle;
     }
 
     public ImageView getRocket() {
@@ -66,7 +71,7 @@ public class Visuel {
         listePoints.add(new Point2D(410, 710));
         listePoints.add(new Point2D(500, 710));
         listePoints.add(new Point2D(600, 500));
-        listePoints.add(new Point2D(650, 500));
+        listePoints.add(new Point2D(675, 500));
         listePoints.add(new Point2D(735, 450));
         listePoints.add(new Point2D(810, 500));
         listePoints.add(new Point2D(890, 575));

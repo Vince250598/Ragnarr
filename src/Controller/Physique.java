@@ -40,14 +40,16 @@ public class Physique {
     public void majUI() {
         visuel.getVitesseX().setText("Vitesse en X: " + vaisseau.getVitesseX());
         visuel.getVitesseY().setText("Vitesse en Y: " + vaisseau.getVitesseY());
-        visuel.getNiveauEssence().setProgress(vaisseau.getCarburant() / 350);
+        visuel.getAngle().setText("Angle du vaisseau: " + vaisseau.getAngle());
+        visuel.getNiveauEssence().setProgress(vaisseau.getCarburant() / vaisseau.getCAPACITE_CARB());
     }
 
     public double calculVitesseY() {
         if (isPressed() && vaisseau.getCarburant() > 0) {
             vaisseau.setCarburant(vaisseau.getCarburant() - 1);
-            setAccelY(getAccelY() * Math.cos((double) rotation - 90));
-            getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY() - 0.06));
+            double rad = Math.toRadians(rotation - 90);
+            setAccelY(getAccelY() * Math.cos(rad));
+            getVaisseau().setVitesseY(getVaisseau().getVitesseY() + (getAccelY() - 0.06));
         } else setAccelY(getPlanete().getGRAVITE());
         getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY()));
         return getVaisseau().getVitesseY();
@@ -56,9 +58,11 @@ public class Physique {
     public double calculPosY() {
         if (isRotationDroite()) {
             rotation += 1;
+            vaisseau.setAngle(rotation);
             visuel.getRocket().setRotate(rotation);
         } else if (isRotationGauche()) {
             rotation -= 1;
+            vaisseau.setAngle(rotation);
             visuel.getRocket().setRotate(rotation);
         }
         visuel.getRocket().setY(visuel.getRocket().getY() + calculVitesseY());
@@ -67,7 +71,8 @@ public class Physique {
 
     public double calculVitesseX() {
         if (isPressed() && vaisseau.getCarburant() > 0) {
-            setAccelX(getPlanete().getGRAVITE() * Math.sin((double) rotation));
+            double rad = Math.toRadians(rotation);
+            setAccelX(getPlanete().getGRAVITE() * Math.sin(rad));
             vaisseau.setVitesseX(vaisseau.getVitesseX() + getAccelX());
             return vaisseau.getVitesseX();
         } else
