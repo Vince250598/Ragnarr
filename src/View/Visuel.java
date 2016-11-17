@@ -82,7 +82,6 @@ public class Visuel {
         listePoints.add(new Point2D(1225, 650));
         listePoints.add(new Point2D(1300, 650));
         listePoints.add(new Point2D(1366, 500));
-
     }
 
     public void loaderSol(Group gr) {

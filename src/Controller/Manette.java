@@ -16,7 +16,6 @@ public class Manette {
             switch (event.getCode()) {
                 case UP:
                     if (!physique.isPressed())
-                        physique.setTemps2(0);
                     physique.setPressed(true);
                     break;
                 case LEFT:
@@ -32,7 +31,6 @@ public class Manette {
             switch (event.getCode()) {
                 case UP:
                     if (physique.isPressed())
-                        physique.setTemps2(0);
                     physique.setPressed(false);
                     break;
                 case LEFT:

@@ -1,11 +1,13 @@
 import Controller.Manette;
 import Controller.Physique;
+import Model.Planete;
 import Model.Vaisseau;
 import View.Visuel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,9 +18,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        Planete planete = new Planete();
         Visuel visuel = new Visuel();
         Vaisseau vaisseau = new Vaisseau();
-        Physique physique = new Physique(vaisseau, visuel);
+        Physique physique = new Physique(vaisseau, visuel, planete);
 
 
         Group root = new Group();
@@ -26,6 +29,7 @@ public class Main extends Application {
         primaryStage.setTitle("Ragnarr");
         primaryStage.setScene(jeux);
         primaryStage.show();
+        primaryStage.setResizable(false);
 
         Manette manette = new Manette(jeux, physique);
         manette.setKeys();

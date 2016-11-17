@@ -6,14 +6,14 @@ import View.Visuel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.util.Duration;
 
 public class Physique {
     private Vaisseau vaisseau;
-    private Planete planete;
-    private Timeline time;
-    private double temps = 0;
-    private double temps2 = 0;
+    private Planete planete = new Planete();
     private double accelY;
     private double accelX;
     private boolean pressed = false;
@@ -22,19 +22,15 @@ public class Physique {
     private boolean rotationGauche = false;
     private Visuel visuel;
 
-    public Physique(Vaisseau v, Visuel visuel) {
+    public Physique(Vaisseau v, Visuel visuel, Planete planete) {
         this.vaisseau = v;
         rotation = 0;
         accelX = 0;
-        time = new Timeline(new KeyFrame(Duration.millis(10), a -> {
-            temps += 0.01;
-            temps2 += 0.01;
-        }));
-        planete = new Planete();
-        time.setCycleCount(Animation.INDEFINITE);
-        time.play();
+        this.planete = planete;
         setAccelY(getPlanete().getGRAVITE());
         this.visuel = visuel;
+        Bounds test = visuel.getRocket().localToScene(visuel.getRocket().getBoundsInLocal());
+
     }
 
     public void majUI() {
@@ -45,6 +41,7 @@ public class Physique {
     }
 
     public double calculVitesseY() {
+        System.out.println(test.getMaxX());
         if (isPressed() && vaisseau.getCarburant() > 0) {
             vaisseau.setCarburant(vaisseau.getCarburant() - 1);
             double rad = Math.toRadians(rotation - 90);
@@ -56,17 +53,20 @@ public class Physique {
     }
 
     public double calculPosY() {
-        if (isRotationDroite()) {
+        if (isRotationDroite() && rotation < 60) {
             rotation += 1;
             vaisseau.setAngle(rotation);
             visuel.getRocket().setRotate(rotation);
-        } else if (isRotationGauche()) {
+        } else if (isRotationGauche() && rotation > (-60)) {
             rotation -= 1;
             vaisseau.setAngle(rotation);
             visuel.getRocket().setRotate(rotation);
         }
-        visuel.getRocket().setY(visuel.getRocket().getY() + calculVitesseY());
-        return visuel.getRocket().getY();
+        vaisseau.setY(vaisseau.getY() + calculVitesseY());
+        visuel.getRocket().setY(vaisseau.getY());
+        //visuel.getRocket().setY(visuel.getRocket().getY() + calculVitesseY());
+        //return visuel.getRocket().getY();
+        return vaisseau.getY();
     }
 
     public double calculVitesseX() {
@@ -81,8 +81,11 @@ public class Physique {
     }
 
     public double calculPosX() {
-        visuel.getRocket().setX(visuel.getRocket().getX() + calculVitesseX());
-        return visuel.getRocket().getX();
+        vaisseau.setX(vaisseau.getX() + calculVitesseX());
+        visuel.getRocket().setX(vaisseau.getX());
+        //visuel.getRocket().setX(visuel.getRocket().getX() + calculVitesseX());
+        //return visuel.getRocket().getX();
+        return vaisseau.getX();
     }
 
     public Vaisseau getVaisseau() {
@@ -105,18 +108,6 @@ public class Physique {
         return planete;
     }
 
-    public Timeline getTime() {
-        return time;
-    }
-
-    public double getTemps() {
-        return temps;
-    }
-
-    public double getTemps2() {
-        return temps2;
-    }
-
     public double getAccelY() {
         return accelY;
     }
@@ -127,18 +118,6 @@ public class Physique {
 
     public void setPlanete(Planete planete) {
         this.planete = planete;
-    }
-
-    public void setTime(Timeline time) {
-        this.time = time;
-    }
-
-    public void setTemps(double temps) {
-        this.temps = temps;
-    }
-
-    public void setTemps2(double temps2) {
-        this.temps2 = temps2;
     }
 
     public boolean isPressed() {
