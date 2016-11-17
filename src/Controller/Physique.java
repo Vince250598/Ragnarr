@@ -15,14 +15,17 @@ public class Physique {
     private double temps = 0;
     private double temps2 = 0;
     private double accelY;
-    private double accelX = 0;
+    private double accelX;
     private boolean pressed = false;
+    private int rotation;
     private boolean rotationDroite = false;
     private boolean rotationGauche = false;
     private Visuel visuel;
 
     public Physique(Vaisseau v, Visuel visuel) {
         this.vaisseau = v;
+        rotation = 0;
+        accelX = 0;
         time = new Timeline(new KeyFrame(Duration.millis(10), a -> {
             temps += 0.01;
             temps2 += 0.01;
@@ -34,12 +37,17 @@ public class Physique {
         this.visuel = visuel;
     }
 
+    public void majUI() {
+        visuel.getVitesseX().setText("Vitesse en X: " + vaisseau.getVitesseX());
+        visuel.getVitesseY().setText("Vitesse en Y: " + vaisseau.getVitesseY());
+        visuel.getNiveauEssence().setProgress(vaisseau.getCarburant() / 350);
+    }
+
     public double calculVitesseY() {
-        if (isPressed()) {
-            setAccelY(getPlanete().getGRAVITE() - 0.06);
-            /*setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
-            setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));*/
-            getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY()));
+        if (isPressed() && vaisseau.getCarburant() > 0) {
+            vaisseau.setCarburant(vaisseau.getCarburant() - 1);
+            setAccelY(getAccelY() * Math.cos((double) rotation - 90));
+            getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY() - 0.06));
         } else setAccelY(getPlanete().getGRAVITE());
         getVaisseau().setVitesseY((getVaisseau().getVitesseY() + getAccelY()));
         return getVaisseau().getVitesseY();
@@ -47,21 +55,19 @@ public class Physique {
 
     public double calculPosY() {
         if (isRotationDroite()) {
-            visuel.getRocket().setRotate(visuel.getRocket().getRotate() + 1);
-            setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
-            setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));
+            rotation += 1;
+            visuel.getRocket().setRotate(rotation);
         } else if (isRotationGauche()) {
-            visuel.getRocket().setRotate(visuel.getRocket().getRotate() - 1);
-            setAccelY(getAccelY() * Math.cos(visuel.getRocket().getRotate()));
-            setAccelX(getAccelX() * Math.sin(visuel.getRocket().getRotate()));         //gosser la rotation et les vitesses
+            rotation -= 1;
+            visuel.getRocket().setRotate(rotation);
         }
-        System.out.println(accelX);
         visuel.getRocket().setY(visuel.getRocket().getY() + calculVitesseY());
         return visuel.getRocket().getY();
     }
 
     public double calculVitesseX() {
-        if (isPressed()) {
+        if (isPressed() && vaisseau.getCarburant() > 0) {
+            setAccelX(getPlanete().getGRAVITE() * Math.sin((double) rotation));
             vaisseau.setVitesseX(vaisseau.getVitesseX() + getAccelX());
             return vaisseau.getVitesseX();
         } else

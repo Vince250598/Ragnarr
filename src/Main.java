@@ -31,11 +31,12 @@ public class Main extends Application {
         manette.setKeys();
 
         visuel.loaderSol(root);
-        root.getChildren().add(visuel.getRocket());
+        root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
 
         Timeline deplacement = new Timeline(new KeyFrame(Duration.millis(15), a -> {
             visuel.getRocket().setTranslateY(physique.calculPosY());
             visuel.getRocket().setTranslateX(physique.calculPosX());
+            physique.majUI();
         }));
         deplacement.setCycleCount(Animation.INDEFINITE);
         deplacement.play();

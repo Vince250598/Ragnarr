@@ -3,8 +3,12 @@ package View;
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 
 import java.util.Vector;
@@ -16,16 +20,40 @@ public class Visuel {
     private Image img = new Image(getClass().getResource("/Ressources/rocket.png").toString());
     private ImageView rocket = new ImageView(img);
     private Vaisseau vaisseau = new Vaisseau();
+    private VBox info = new VBox(5);
+    private Label vitesseX = new Label("Vitesse en X: " + vaisseau.getVitesseX());
+    private Label vitesseY = new Label("Vitesse en Y: " + vaisseau.getVitesseY());
+    private HBox essence = new HBox(5);
+    private Label carburant = new Label("Carburant:");
+    private ProgressBar niveauEssence = new ProgressBar(vaisseau.getCarburant() / 350);
 
     public Visuel() {
         getRocket().setScaleX(0.7);
         getRocket().setScaleY(0.7);
         getRocket().setX(vaisseau.getX());
         getRocket().setY(vaisseau.getY());
+        essence.getChildren().addAll(carburant, niveauEssence);
+        info.getChildren().addAll(vitesseY, vitesseX, essence);
+    }
+
+    public VBox getInfo() {
+        return info;
+    }
+
+    public Label getVitesseX() {
+        return vitesseX;
+    }
+
+    public Label getVitesseY() {
+        return vitesseY;
     }
 
     public ImageView getRocket() {
         return rocket;
+    }
+
+    public ProgressBar getNiveauEssence() {
+        return niveauEssence;
     }
 
     private void ajouterPoints() {
