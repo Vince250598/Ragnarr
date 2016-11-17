@@ -31,8 +31,6 @@ public class Visuel {
     public Visuel() {
         getRocket().setScaleX(0.7);
         getRocket().setScaleY(0.7);
-        getRocket().setX(vaisseau.getX());
-        getRocket().setY(vaisseau.getY());
         essence.getChildren().addAll(carburant, niveauEssence);
         info.getChildren().addAll(vitesseY, vitesseX, angle, essence);
     }

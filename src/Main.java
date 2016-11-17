@@ -7,7 +7,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -38,8 +37,8 @@ public class Main extends Application {
         root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
 
         Timeline deplacement = new Timeline(new KeyFrame(Duration.millis(15), a -> {
-            visuel.getRocket().setTranslateY(physique.calculPosY());
-            visuel.getRocket().setTranslateX(physique.calculPosX());
+            physique.calculPosY();
+            physique.calculPosX();
             physique.majUI();
         }));
         deplacement.setCycleCount(Animation.INDEFINITE);

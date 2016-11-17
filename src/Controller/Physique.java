@@ -29,7 +29,6 @@ public class Physique {
         this.planete = planete;
         setAccelY(getPlanete().getGRAVITE());
         this.visuel = visuel;
-        Bounds test = visuel.getRocket().localToScene(visuel.getRocket().getBoundsInLocal());
 
     }
 
@@ -41,7 +40,6 @@ public class Physique {
     }
 
     public double calculVitesseY() {
-        System.out.println(test.getMaxX());
         if (isPressed() && vaisseau.getCarburant() > 0) {
             vaisseau.setCarburant(vaisseau.getCarburant() - 1);
             double rad = Math.toRadians(rotation - 90);
@@ -64,8 +62,6 @@ public class Physique {
         }
         vaisseau.setY(vaisseau.getY() + calculVitesseY());
         visuel.getRocket().setY(vaisseau.getY());
-        //visuel.getRocket().setY(visuel.getRocket().getY() + calculVitesseY());
-        //return visuel.getRocket().getY();
         return vaisseau.getY();
     }
 
@@ -83,8 +79,6 @@ public class Physique {
     public double calculPosX() {
         vaisseau.setX(vaisseau.getX() + calculVitesseX());
         visuel.getRocket().setX(vaisseau.getX());
-        //visuel.getRocket().setX(visuel.getRocket().getX() + calculVitesseX());
-        //return visuel.getRocket().getX();
         return vaisseau.getX();
     }
 
