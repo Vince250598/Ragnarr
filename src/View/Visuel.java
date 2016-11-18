@@ -3,6 +3,8 @@ package View;
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -27,12 +29,48 @@ public class Visuel {
     private HBox essence = new HBox(5);
     private Label carburant = new Label("Carburant:");
     private ProgressBar niveauEssence = new ProgressBar(vaisseau.getCarburant() / vaisseau.getCAPACITE_CARB());
+    private Alert fail = new Alert(Alert.AlertType.INFORMATION);
+    private Alert success = new Alert(Alert.AlertType.INFORMATION);
 
     public Visuel() {
         getRocket().setScaleX(0.7);
         getRocket().setScaleY(0.7);
         essence.getChildren().addAll(carburant, niveauEssence);
         info.getChildren().addAll(vitesseY, vitesseX, angle, essence);
+        setFail();
+        setSuccess();
+    }
+
+    private void setFail(){
+        fail.setTitle("Fail");
+        fail.setHeaderText(null);
+        fail.setContentText("Vous vous êtes crashé!!! Que voulez-vous faire?");
+        ButtonType rejouer = new ButtonType("Rejouer");
+        ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
+        ButtonType quitter = new ButtonType("Quitter");
+        fail.getButtonTypes().setAll(rejouer, menu, quitter);
+    }
+
+    public Alert getFail() {
+        return fail;
+    }
+
+    private void setSuccess(){
+        success.setTitle("Success");
+        success.setHeaderText(null);
+        success.setContentText("Vous avez atterri en toute sécurité!!! Que voulez-vous faire?");
+        ButtonType rejouer = new ButtonType("Rejouer");
+        ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
+        ButtonType quitter = new ButtonType("Quitter");
+        success.getButtonTypes().setAll(rejouer, menu, quitter);
+    }
+
+    public Alert getSuccess() {
+        return success;
+    }
+
+    public Vector<Line> getSol() {
+        return sol;
     }
 
     public VBox getInfo() {

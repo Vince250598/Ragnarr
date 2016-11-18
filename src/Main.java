@@ -1,3 +1,4 @@
+import Controller.Collider;
 import Controller.Manette;
 import Controller.Physique;
 import Model.Planete;
@@ -19,6 +20,7 @@ public class Main extends Application {
 
         Planete planete = new Planete();
         Visuel visuel = new Visuel();
+        Collider collider = new Collider();
         Vaisseau vaisseau = new Vaisseau();
         Physique physique = new Physique(vaisseau, visuel, planete);
 
@@ -41,7 +43,18 @@ public class Main extends Application {
             physique.calculPosX();
             physique.majUI();
         }));
+
+        Timeline stop = new Timeline(new KeyFrame(Duration.millis(1), b ->{
+            collider.emplacementVaisseau(visuel);
+            collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
+            if (collider.isCrashed())
+                System.out.println("crash");
+            if (collider.isLanded())
+                System.out.println("land");
+        }));
+        stop.setCycleCount(Animation.INDEFINITE);
         deplacement.setCycleCount(Animation.INDEFINITE);
+        stop.play();
         deplacement.play();
     }
 
