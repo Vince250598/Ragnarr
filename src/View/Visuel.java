@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 
+import java.util.Optional;
 import java.util.Vector;
 
 public class Visuel {
@@ -31,6 +32,9 @@ public class Visuel {
     private ProgressBar niveauEssence = new ProgressBar(vaisseau.getCarburant() / vaisseau.getCAPACITE_CARB());
     private Alert fail = new Alert(Alert.AlertType.INFORMATION);
     private Alert success = new Alert(Alert.AlertType.INFORMATION);
+    private ButtonType rejouer = new ButtonType("Rejouer");
+    private ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
+    private ButtonType quitter = new ButtonType("Quitter");
 
     public Visuel() {
         getRocket().setScaleX(0.7);
@@ -45,9 +49,6 @@ public class Visuel {
         fail.setTitle("Fail");
         fail.setHeaderText(null);
         fail.setContentText("Vous vous êtes crashé!!! Que voulez-vous faire?");
-        ButtonType rejouer = new ButtonType("Rejouer");
-        ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
-        ButtonType quitter = new ButtonType("Quitter");
         fail.getButtonTypes().setAll(rejouer, menu, quitter);
     }
 
@@ -59,14 +60,16 @@ public class Visuel {
         success.setTitle("Success");
         success.setHeaderText(null);
         success.setContentText("Vous avez atterri en toute sécurité!!! Que voulez-vous faire?");
-        ButtonType rejouer = new ButtonType("Rejouer");
-        ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
-        ButtonType quitter = new ButtonType("Quitter");
         success.getButtonTypes().setAll(rejouer, menu, quitter);
     }
 
     public Alert getSuccess() {
         return success;
+    }
+
+    public Optional<ButtonType> getBouton(Alert alert){
+        Optional<ButtonType> result = alert.showAndWait();
+        return result;
     }
 
     public Vector<Line> getSol() {
@@ -95,6 +98,18 @@ public class Visuel {
 
     public ProgressBar getNiveauEssence() {
         return niveauEssence;
+    }
+
+    public ButtonType getRejouer() {
+        return rejouer;
+    }
+
+    public ButtonType getMenu() {
+        return menu;
+    }
+
+    public ButtonType getQuitter() {
+        return quitter;
     }
 
     private void ajouterPoints() {

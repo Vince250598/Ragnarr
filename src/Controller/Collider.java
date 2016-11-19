@@ -5,8 +5,6 @@ import View.Visuel;
 import javafx.animation.Timeline;
 import javafx.scene.shape.Line;
 
-import java.util.List;
-
 public class Collider {
 
     private boolean crashed = false;
