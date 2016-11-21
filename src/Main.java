@@ -57,7 +57,7 @@ public class Main extends Application {
                         //aller dans le menu
                     } else System.exit(0);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }));
@@ -71,7 +71,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Ragnarr");
-        primaryStage.setScene(jeux);
+        primaryStage.setScene(jeux);    //mettre la scene du menu quand il va en avoir un
         primaryStage.show();
         primaryStage.setResizable(false);
 

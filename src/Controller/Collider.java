@@ -19,7 +19,10 @@ public class Collider {
             if (visuel.getSol().get(i).getStartX() <= visuel.getRocket().getX() && visuel.getSol().get(i).getEndX() >= (visuel.getRocket().getX() + 41.3/*largeur de l'image*/)) {
                 sol = visuel.getSol().get(i);
                 break;
-            } else sol = null;
+            } else {
+               // sol = visuel.getSol().get((int) ((visuel.getRocket().getX() + 20.65/*demi-largeur*/) / 1366 /*largeur fenêtre*/) * 20); un peu beaucoup foireux
+                sol = null;
+            }
         }
     }
 
@@ -30,19 +33,16 @@ public class Collider {
 
     public void checkCollision(Line l, Visuel visuel, Vaisseau vaisseau, Timeline tl) {
         if (l != null && (visuel.getRocket().getY() + 53.2 /*hauteur de l'image*/) >= yDuSol(visuel)) {
-            if (l.getStartY() != l.getEndY()){
+            if (l.getStartY() != l.getEndY()) {
                 crashed = true;
                 tl.stop();
-            }
-            else if (Math.abs(vaisseau.getAngle()) > 10){
+            } else if (Math.abs(vaisseau.getAngle()) > 10) {
                 crashed = true;
                 tl.stop();
-            }
-            else if (vaisseau.getVitesseY() > 2){
+            } else if (vaisseau.getVitesseY() > 2) {
                 crashed = true;
                 tl.stop();
-            }
-            else {
+            } else {
                 landed = true;
                 tl.stop();
             }
