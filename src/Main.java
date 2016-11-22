@@ -35,12 +35,33 @@ public class Main extends Application {
         visuel.loaderSol(root);
         root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
 
-        Timeline deplacement = new Timeline(new KeyFrame(Duration.millis(15), a -> {
+        Timeline deplacement = new Timeline();
+
+        KeyFrame kf = new KeyFrame(Duration.millis(15), a -> {
             physique.calculPosY();
             physique.calculPosX();
             physique.majUI();
-        }));
+            collider.emplacementVaisseau(visuel);
+            collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
+            if (deplacement.getStatus().equals(Animation.Status.STOPPED)) {
+                Optional<ButtonType> bouton = null;
+                if (collider.isLanded())
+                    bouton = visuel.getBouton(visuel.getSuccess());
+                if (collider.isCrashed()) {
+                    //bouton = visuel.getBouton(visuel.getFail());
+                    visuel.getFail().show();
+                }
+                if (bouton != null) {
+                    if (bouton.get() == visuel.getRejouer())
+                        jouer();
+                    else if (bouton.get() == visuel.getMenu()) {
+                        //aller dans le menu
+                    } else System.exit(0);
+                }
+            }
+        });
 
+        deplacement.getKeyFrames().add(kf);
 
        /* Timeline stop = new Timeline(new KeyFrame(Duration.millis(1), b -> {
             try {

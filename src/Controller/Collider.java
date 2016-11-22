@@ -32,6 +32,7 @@ public class Collider {
     }
 
     public void checkCollision(Line l, Visuel visuel, Vaisseau vaisseau, Timeline tl) {
+
         if (l != null && (visuel.getRocket().getY() + 53.2 /*hauteur de l'image*/) >= yDuSol(visuel)) {
             if (l.getStartY() != l.getEndY()) {
                 crashed = true;
