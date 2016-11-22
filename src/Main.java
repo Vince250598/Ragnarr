@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,15 +42,18 @@ public class Main extends Application {
         }));
 
 
-        Timeline stop = new Timeline(new KeyFrame(Duration.millis(1), b -> {
+       /* Timeline stop = new Timeline(new KeyFrame(Duration.millis(1), b -> {
             try {
                 Optional<ButtonType> bouton = null;
                 collider.emplacementVaisseau(visuel);
                 collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
-                if (collider.isCrashed())
-                    bouton = visuel.getBouton(visuel.getFail());
                 if (collider.isLanded())
-                    bouton = visuel.getBouton(visuel.getSuccess());
+                    // bouton = visuel.getBouton(visuel.getFail());
+                    System.out.println("land");
+                if (collider.isCrashed()) {
+                    //bouton = visuel.getBouton(visuel.getSuccess());
+                    System.out.println("crash");
+                }
                 if (bouton != null) {
                     if (bouton.get() == visuel.getRejouer())
                         jouer();
@@ -60,11 +64,25 @@ public class Main extends Application {
             } catch (Exception e) {
 
             }
+
         }));
-        stop.setCycleCount(Animation.INDEFINITE);
+        stop.setCycleCount(Animation.INDEFINITE);*/
         deplacement.setCycleCount(Animation.INDEFINITE);
-        stop.play();
+        //stop.play();
         deplacement.play();
+        /*if (!visuel.getFail().isShowing() && !visuel.getSuccess().isShowing()) {
+            stop.play();
+            visuel.getFail().showingProperty().addListener(((observable, oldValue, newValue) -> {
+                if (!newValue) {
+                    stop.stop();
+                    try {
+                        System.out.println("yo j'suis la");
+                    } catch (Exception e) {
+
+                    }
+                }else visuel.getFail().show();
+            }));
+        }*/
     }
 
     @Override
