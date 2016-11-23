@@ -82,6 +82,14 @@ public class Physique {
         return vaisseau.getX();
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
+
     public Vaisseau getVaisseau() {
         return vaisseau;
     }

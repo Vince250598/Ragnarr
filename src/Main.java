@@ -26,15 +26,9 @@ public class Main extends Application {
     Physique physique = new Physique(vaisseau, visuel, planete);
     Group root = new Group();
     Scene jeux = new Scene(root, 1366, 768);
+    Manette manette = new Manette(jeux, physique);
 
-    public void jouer() {
-
-        Manette manette = new Manette(jeux, physique);
-        manette.setKeys();
-
-        visuel.loaderSol(root);
-        root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
-
+    public void deplacer() {
         Timeline deplacement = new Timeline();
 
         KeyFrame kf = new KeyFrame(Duration.millis(15), a -> {
@@ -47,63 +41,42 @@ public class Main extends Application {
                 Optional<ButtonType> bouton = null;
                 if (collider.isLanded())
                     bouton = visuel.getBouton(visuel.getSuccess());
-                if (collider.isCrashed()) {
-                    //bouton = visuel.getBouton(visuel.getFail());
-                    visuel.getFail().show();
-                }
+                if (collider.isCrashed())
+                    bouton = visuel.getBouton(visuel.getFail());
                 if (bouton != null) {
                     if (bouton.get() == visuel.getRejouer())
-                        jouer();
+                        reset();
                     else if (bouton.get() == visuel.getMenu()) {
                         //aller dans le menu
                     } else System.exit(0);
                 }
             }
         });
-
         deplacement.getKeyFrames().add(kf);
-
-       /* Timeline stop = new Timeline(new KeyFrame(Duration.millis(1), b -> {
-            try {
-                Optional<ButtonType> bouton = null;
-                collider.emplacementVaisseau(visuel);
-                collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
-                if (collider.isLanded())
-                    // bouton = visuel.getBouton(visuel.getFail());
-                    System.out.println("land");
-                if (collider.isCrashed()) {
-                    //bouton = visuel.getBouton(visuel.getSuccess());
-                    System.out.println("crash");
-                }
-                if (bouton != null) {
-                    if (bouton.get() == visuel.getRejouer())
-                        jouer();
-                    else if (bouton.get() == visuel.getMenu()) {
-                        //aller dans le menu
-                    } else System.exit(0);
-                }
-            } catch (Exception e) {
-
-            }
-
-        }));
-        stop.setCycleCount(Animation.INDEFINITE);*/
         deplacement.setCycleCount(Animation.INDEFINITE);
-        //stop.play();
         deplacement.play();
-        /*if (!visuel.getFail().isShowing() && !visuel.getSuccess().isShowing()) {
-            stop.play();
-            visuel.getFail().showingProperty().addListener(((observable, oldValue, newValue) -> {
-                if (!newValue) {
-                    stop.stop();
-                    try {
-                        System.out.println("yo j'suis la");
-                    } catch (Exception e) {
+    }
 
-                    }
-                }else visuel.getFail().show();
-            }));
-        }*/
+    public void jouer() {
+        manette.setKeys();
+        visuel.loaderSol(root);
+        root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
+        deplacer();
+    }
+
+    public void reset() {
+        vaisseau.setVitesseX(0);
+        vaisseau.setVitesseY(0);
+        vaisseau.setX(0);
+        vaisseau.setY(0);
+        vaisseau.setCarburant(vaisseau.getCAPACITE_CARB());
+        vaisseau.setAngle(0);
+        visuel.getRocket().setRotate(0);
+        physique.setRotation(0);
+        collider.setCrashed(false);
+        collider.setLanded(false);
+        manette.setKeys();
+        deplacer();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Collider {
                 sol = visuel.getSol().get(i);
                 break;
             } else {
-               // sol = visuel.getSol().get((int) ((visuel.getRocket().getX() + 20.65/*demi-largeur*/) / 1366 /*largeur fenêtre*/) * 20); un peu beaucoup foireux
+                // sol = visuel.getSol().get((int) ((visuel.getRocket().getX() + 20.65/*demi-largeur*/) / 1366 /*largeur fenêtre*/) * 20); un peu beaucoup foireux
                 sol = null;
             }
         }
@@ -40,7 +40,10 @@ public class Collider {
             } else if (Math.abs(vaisseau.getAngle()) > 10) {
                 crashed = true;
                 tl.stop();
-            } else if (vaisseau.getVitesseY() > 2) {
+            } else if (vaisseau.getVitesseY() > 1.5) {
+                crashed = true;
+                tl.stop();
+            } else if (vaisseau.getVitesseX() > 1.5) {
                 crashed = true;
                 tl.stop();
             } else {
