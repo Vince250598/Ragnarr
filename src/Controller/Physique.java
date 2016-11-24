@@ -78,6 +78,10 @@ public class Physique {
 
     public double calculPosX() {
         vaisseau.setX(vaisseau.getX() + calculVitesseX());
+        if (vaisseau.getX() > 1366)
+            vaisseau.setX(vaisseau.getX() - 1366);
+        if (vaisseau.getX() < 0)
+            vaisseau.setX(vaisseau.getX() + 1366);
         visuel.getRocket().setX(vaisseau.getX());
         return vaisseau.getX();
     }

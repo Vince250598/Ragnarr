@@ -35,7 +35,7 @@ public class Main extends Application {
             physique.calculPosY();
             physique.calculPosX();
             physique.majUI();
-            collider.emplacementVaisseau(visuel);
+            //collider.emplacementVaisseau(visuel);
             collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
             if (deplacement.getStatus().equals(Animation.Status.STOPPED)) {
                 Optional<ButtonType> bouton = null;
@@ -67,7 +67,7 @@ public class Main extends Application {
     public void reset() {
         vaisseau.setVitesseX(0);
         vaisseau.setVitesseY(0);
-        vaisseau.setX(0);
+        vaisseau.setX((int)(Math.random() * 1366));
         vaisseau.setY(0);
         vaisseau.setCarburant(vaisseau.getCAPACITE_CARB());
         vaisseau.setAngle(0);
