@@ -35,6 +35,12 @@ public class Visuel {
     private ButtonType rejouer = new ButtonType("Rejouer");
     private ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
     private ButtonType quitter = new ButtonType("Quitter");
+    private Image menuImg = new Image(getClass().getResource("/Ressources/Menu.jpg").toString());
+    private ImageView menuMenu = new ImageView(menuImg);
+    private Button jouer = new Button();
+    private Button exit = new Button();
+    private Group root = new Group();
+    Scene menuScene = new Scene(root, 1366, 768);
 
     public Visuel() {
         getRocket().setScaleX(0.7);
@@ -45,7 +51,7 @@ public class Visuel {
         setSuccess();
     }
 
-    private void setFail(){
+    private void setFail() {
         fail.setTitle("Fail");
         fail.setHeaderText(null);
         fail.setContentText("Vous vous êtes crashé!!! Que voulez-vous faire?");
@@ -56,7 +62,7 @@ public class Visuel {
         return fail;
     }
 
-    private void setSuccess(){
+    private void setSuccess() {
         success.setTitle("Success");
         success.setHeaderText(null);
         success.setContentText("Vous avez atterri en toute sécurité!!! Que voulez-vous faire?");
@@ -67,7 +73,7 @@ public class Visuel {
         return success;
     }
 
-    public Optional<ButtonType> getBouton(Alert alert){
+    public Optional<ButtonType> getBouton(Alert alert) {
         Optional<ButtonType> result = alert.showAndWait();
         return result;
     }
@@ -133,6 +139,10 @@ public class Visuel {
         listePoints.add(new Point2D(1225, 650));
         listePoints.add(new Point2D(1300, 650));
         listePoints.add(new Point2D(1366, 500));
+    }
+
+    public void loaderMenu() {
+        root.getChildren().addAll(menuMenu, jouer, exit);
     }
 
     public void loaderSol(Group gr) {

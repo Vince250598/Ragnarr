@@ -25,7 +25,9 @@ public class Main extends Application {
     Vaisseau vaisseau = new Vaisseau();
     Physique physique = new Physique(vaisseau, visuel, planete);
     Group root = new Group();
+    Group menuRoot = new Group();
     Scene jeux = new Scene(root, 1366, 768);
+    Scene menu = new Scene(menuRoot, 1366, 768);
     Manette manette = new Manette(jeux, physique);
 
     public void deplacer() {
@@ -35,7 +37,6 @@ public class Main extends Application {
             physique.calculPosY();
             physique.calculPosX();
             physique.majUI();
-            //collider.emplacementVaisseau(visuel);
             collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
             if (deplacement.getStatus().equals(Animation.Status.STOPPED)) {
                 Optional<ButtonType> bouton = null;
@@ -55,6 +56,10 @@ public class Main extends Application {
         deplacement.getKeyFrames().add(kf);
         deplacement.setCycleCount(Animation.INDEFINITE);
         deplacement.play();
+    }
+
+    public void changerScene(Stage s){
+        s.setScene();
     }
 
     public void jouer() {
