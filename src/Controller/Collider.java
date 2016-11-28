@@ -25,17 +25,6 @@ public class Collider {
         return 0;
     }
 
-    //public void emplacementVaisseau(Visuel visuel) {
-    //  for (int i = 0; i < visuel.getSol().size(); i++) {
-    //    if (visuel.getSol().get(i).getStartX() <= visuel.getRocket().getX() && visuel.getSol().get(i).getEndX() >= (visuel.getRocket().getX() + 41.3/*largeur de l'image*/)) {
-    //      sol = visuel.getSol().get(i);
-    //    break;
-    //} else {
-    //  sol = null;
-    //}
-    //}
-    // }
-
     public double yDuSol(Visuel visuel) {
         double k = Math.abs(sol.getEndX() - sol.getStartX()) / Math.abs(visuel.getRocket().getX() + 20.65/*demi-largeur*/ - sol.getStartX());
         return ((Math.abs(sol.getEndY() - sol.getStartY()) / k) + sol.getStartY());

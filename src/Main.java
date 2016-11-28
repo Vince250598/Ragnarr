@@ -10,7 +10,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -25,10 +24,9 @@ public class Main extends Application {
     Vaisseau vaisseau = new Vaisseau();
     Physique physique = new Physique(vaisseau, visuel, planete);
     Group root = new Group();
-    Group menuRoot = new Group();
     Scene jeux = new Scene(root, 1366, 768);
-    Scene menu = new Scene(menuRoot, 1366, 768);
     Manette manette = new Manette(jeux, physique);
+    Manette manetteMenu = new Manette(visuel);
 
     public void deplacer() {
         Timeline deplacement = new Timeline();
@@ -58,8 +56,8 @@ public class Main extends Application {
         deplacement.play();
     }
 
-    public void changerScene(Stage s){
-        s.setScene();
+    public void changerScene(Stage s) {
+        //s.setScene();
     }
 
     public void jouer() {
@@ -72,7 +70,7 @@ public class Main extends Application {
     public void reset() {
         vaisseau.setVitesseX(0);
         vaisseau.setVitesseY(0);
-        vaisseau.setX((int)(Math.random() * 1366));
+        vaisseau.setX((int) (Math.random() * 1366));
         vaisseau.setY(0);
         vaisseau.setCarburant(vaisseau.getCAPACITE_CARB());
         vaisseau.setAngle(0);
@@ -84,15 +82,22 @@ public class Main extends Application {
         deplacer();
     }
 
+    public void showMenu() {
+        visuel.loaderMenu();
+        manetteMenu.setBoutons();
+    }
+
     @Override
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Ragnarr");
-        primaryStage.setScene(jeux);    //mettre la scene du menu quand il va en avoir un
+        primaryStage.setScene(visuel.getMenuScene());    //mettre la scene du menu quand il va en avoir un
         primaryStage.show();
         primaryStage.setResizable(false);
 
-        jouer();
+        showMenu();
+
+        //jouer();
 
     }
 

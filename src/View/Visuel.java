@@ -2,15 +2,13 @@ package View;
 
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 
 import java.util.Optional;
@@ -36,10 +34,9 @@ public class Visuel {
     private ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
     private ButtonType quitter = new ButtonType("Quitter");
     private Image menuImg = new Image(getClass().getResource("/Ressources/Menu.jpg").toString());
-    private ImageView menuMenu = new ImageView(menuImg);
-    private Button jouer = new Button();
-    private Button exit = new Button();
-    private Group root = new Group();
+    private ImageView play = new ImageView(new Image("/Ressources/PLAY.png"));
+    private ImageView exit = new ImageView(new Image("/Ressources/EXIT.png"));
+    private BorderPane root = new BorderPane();
     Scene menuScene = new Scene(root, 1366, 768);
 
     public Visuel() {
@@ -49,6 +46,18 @@ public class Visuel {
         info.getChildren().addAll(vitesseY, vitesseX, angle, essence);
         setFail();
         setSuccess();
+    }
+
+    public ImageView getPlay() {
+        return play;
+    }
+
+    public ImageView getExit() {
+        return exit;
+    }
+
+    public Scene getMenuScene() {
+        return menuScene;
     }
 
     private void setFail() {
@@ -142,8 +151,15 @@ public class Visuel {
     }
 
     public void loaderMenu() {
-        root.getChildren().addAll(menuMenu, jouer, exit);
+        BackgroundImage bgImg = new BackgroundImage(menuImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
+        Background bg = new Background(bgImg);
+        root.setBackground(bg);
+        root.setCenter(play);
+        root.setBottom(exit);
     }
+
+
 
     public void loaderSol(Group gr) {
         ajouterPoints();
