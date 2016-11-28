@@ -1,5 +1,6 @@
 import Controller.Collider;
 import Controller.Manette;
+import Controller.Menu;
 import Controller.Physique;
 import Model.Planete;
 import Model.Vaisseau;
@@ -27,8 +28,9 @@ public class Main extends Application {
     Group root = new Group();
     Group menuRoot = new Group();
     Scene jeux = new Scene(root, 1366, 768);
-    Scene menu = new Scene(menuRoot, 1366, 768);
+    Scene menuScene = new Scene(menuRoot, 1366, 768);
     Manette manette = new Manette(jeux, physique);
+    Menu menu = new Menu();
 
     public void deplacer() {
         Timeline deplacement = new Timeline();
@@ -58,10 +60,6 @@ public class Main extends Application {
         deplacement.play();
     }
 
-    public void changerScene(Stage s){
-        s.setScene();
-    }
-
     public void jouer() {
         manette.setKeys();
         visuel.loaderSol(root);
@@ -72,7 +70,7 @@ public class Main extends Application {
     public void reset() {
         vaisseau.setVitesseX(0);
         vaisseau.setVitesseY(0);
-        vaisseau.setX((int)(Math.random() * 1366));
+        vaisseau.setX((int) (Math.random() * 1366));
         vaisseau.setY(0);
         vaisseau.setCarburant(vaisseau.getCAPACITE_CARB());
         vaisseau.setAngle(0);
@@ -84,16 +82,22 @@ public class Main extends Application {
         deplacer();
     }
 
+    public void loaderMenu() {
+        menu.getJouer().setOnAction(a -> {
+            jouer();
+        });
+        menu.getExit().setOnAction(b -> {
+            System.exit(0);
+        });
+    }
+
     @Override
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Ragnarr");
-        primaryStage.setScene(jeux);    //mettre la scene du menu quand il va en avoir un
+        primaryStage.setScene(menu.getScene());    //mettre la scene du menu quand il va en avoir un
         primaryStage.show();
         primaryStage.setResizable(false);
-
-        jouer();
-
     }
 
 

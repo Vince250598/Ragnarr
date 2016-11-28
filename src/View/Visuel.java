@@ -3,10 +3,8 @@ package View;
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -35,10 +33,6 @@ public class Visuel {
     private ButtonType rejouer = new ButtonType("Rejouer");
     private ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
     private ButtonType quitter = new ButtonType("Quitter");
-    private Image menuImg = new Image(getClass().getResource("/Ressources/Menu.jpg").toString());
-    private ImageView menuMenu = new ImageView(menuImg);
-    private Button jouer = new Button();
-    private Button exit = new Button();
     private Group root = new Group();
     Scene menuScene = new Scene(root, 1366, 768);
 
@@ -141,9 +135,9 @@ public class Visuel {
         listePoints.add(new Point2D(1366, 500));
     }
 
-    public void loaderMenu() {
+    /*public void loaderMenu() {
         root.getChildren().addAll(menuMenu, jouer, exit);
-    }
+    }*/
 
     public void loaderSol(Group gr) {
         ajouterPoints();
