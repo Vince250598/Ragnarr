@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 
 import java.util.Optional;
 import java.util.Vector;
@@ -34,10 +35,12 @@ public class Visuel {
     private ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
     private ButtonType quitter = new ButtonType("Quitter");
     private Image menuImg = new Image(getClass().getResource("/Ressources/Menu.jpg").toString());
+    private Image planeteImg = new Image(getClass().getResource("/Ressources/background.jpg").toString());
     private ImageView play = new ImageView(new Image("/Ressources/PLAY.png"));
     private ImageView exit = new ImageView(new Image("/Ressources/EXIT.png"));
     private BorderPane root = new BorderPane();
     Scene menuScene = new Scene(root, 1366, 768);
+    Polygon pol = new Polygon();
 
     public Visuel() {
         getRocket().setScaleX(0.7);
@@ -128,6 +131,7 @@ public class Visuel {
     }
 
     private void ajouterPoints() {
+        listePoints.add(new Point2D(0, 768));
         listePoints.add(new Point2D(0, 550));
         listePoints.add(new Point2D(69, 600));
         listePoints.add(new Point2D(130, 620));
@@ -136,6 +140,7 @@ public class Visuel {
         listePoints.add(new Point2D(345, 630));
         listePoints.add(new Point2D(410, 710));
         listePoints.add(new Point2D(500, 710));
+        listePoints.add(new Point2D(530, 600));
         listePoints.add(new Point2D(600, 500));
         listePoints.add(new Point2D(675, 500));
         listePoints.add(new Point2D(735, 450));
@@ -148,6 +153,11 @@ public class Visuel {
         listePoints.add(new Point2D(1225, 650));
         listePoints.add(new Point2D(1300, 650));
         listePoints.add(new Point2D(1366, 500));
+        listePoints.add(new Point2D(1366, 768));
+        int i = 0;
+        while (i < listePoints.size()){
+            //créer le polygone à partir des points et le colorier
+        }
     }
 
     public void loaderMenu() {
@@ -160,15 +170,18 @@ public class Visuel {
     }
 
 
-
-    public void loaderSol(Group gr) {
+    public void loaderSol(Pane pane) {
         ajouterPoints();
         for (int i = 0; i < listePoints.size(); i++) {
             if (i != listePoints.size() - 1) {
                 sol.add(new Line(listePoints.get(i).getX(), listePoints.get(i).getY(),
                         listePoints.get(i + 1).getX(), listePoints.get(i + 1).getY()));
-                gr.getChildren().add(sol.get(i));
+                pane.getChildren().add(sol.get(i));
             }
         }
+        BackgroundImage bgImg = new BackgroundImage(planeteImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
+        Background bg = new Background(bgImg);
+        pane.setBackground(bg);
     }
 }

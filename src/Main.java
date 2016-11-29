@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -23,7 +24,7 @@ public class Main extends Application {
     Collider collider = new Collider();
     Vaisseau vaisseau = new Vaisseau();
     Physique physique = new Physique(vaisseau, visuel, planete);
-    Group root = new Group();
+    Pane root = new Pane();
     Scene jeux = new Scene(root, 1366, 768);
     Manette manette = new Manette(jeux, physique);
     boolean firstMatch = true;
