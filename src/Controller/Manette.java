@@ -48,14 +48,4 @@ public class Manette {
             }
         });
     }
-
-    public void setBoutons(){
-        visuel.getExit().setOnMouseClicked(event -> {
-            System.exit(0);
-        });
-
-        visuel.getPlay().setOnMouseClicked(event -> {
-            //trouver une façon de caller la méthode jouer qui est dans le main
-        });
-    }
 }
