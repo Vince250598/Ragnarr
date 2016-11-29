@@ -161,7 +161,7 @@ public class Visuel {
 
 
 
-    public void loaderSol(Group gr) {
+    public void loaderSol(Pane gr) {
         ajouterPoints();
         for (int i = 0; i < listePoints.size(); i++) {
             if (i != listePoints.size() - 1) {

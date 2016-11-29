@@ -1,20 +1,18 @@
 package Controller;
 
+import View.Audio;
 import View.Visuel;
 import javafx.scene.Scene;
 
 public class Manette {
     Scene scene;
     Physique physique;
-    Visuel visuel;
+    Audio audio;
 
-    public Manette(Scene scene, Physique physique) {
+    public Manette(Scene scene, Physique physique, Audio audio) {
         this.scene = scene;
         this.physique = physique;
-    }
-
-    public Manette (Visuel v){
-        this.visuel = v;
+        this.audio = audio;
     }
 
     public void setKeys() {
@@ -23,6 +21,7 @@ public class Manette {
                 case UP:
                     if (!physique.isPressed())
                     physique.setPressed(true);
+                    audio.getMoteurRocket().play();
                     break;
                 case LEFT:
                     physique.setRotationGauche(true);
@@ -38,6 +37,7 @@ public class Manette {
                 case UP:
                     if (physique.isPressed())
                     physique.setPressed(false);
+                    audio.getMoteurRocket().stop();
                     break;
                 case LEFT:
                     physique.setRotationGauche(false);

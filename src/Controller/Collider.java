@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Vaisseau;
+import View.Audio;
 import View.Visuel;
 import javafx.animation.Timeline;
 import javafx.scene.shape.Line;
@@ -10,8 +11,10 @@ public class Collider {
     private boolean crashed = false;
     private boolean landed = false;
     private Line sol = null;
+    private Audio audio;
 
-    public Collider() {
+    public Collider(Audio audio) {
+        this.audio = audio;
     }
 
     public double locationVaisseau(Visuel visuel) {
@@ -50,6 +53,10 @@ public class Collider {
                 landed = true;
                 tl.stop();
             }
+            if (crashed)
+                audio.getCrash().play();
+            else if(landed)
+                audio.getVictoire().play();
         }
     }
 
