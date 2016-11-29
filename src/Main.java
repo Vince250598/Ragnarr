@@ -31,8 +31,9 @@ public class Main extends Application {
     Scene menuScene = new Scene(menuRoot, 1366, 768);
     Manette manette = new Manette(jeux, physique);
     Menu menu = new Menu();
+    Boolean premierePartie = true;
 
-    public void deplacer() {
+    public void deplacer(Stage stage) {
         Timeline deplacement = new Timeline();
 
         KeyFrame kf = new KeyFrame(Duration.millis(15), a -> {
@@ -48,9 +49,10 @@ public class Main extends Application {
                     bouton = visuel.getBouton(visuel.getFail());
                 if (bouton != null) {
                     if (bouton.get() == visuel.getRejouer())
-                        reset();
+                        reset(stage);
                     else if (bouton.get() == visuel.getMenu()) {
                         //aller dans le menu
+                        setScene(stage, menu.getScene());
                     } else System.exit(0);
                 }
             }
@@ -60,14 +62,14 @@ public class Main extends Application {
         deplacement.play();
     }
 
-    public void jouer() {
+    public void jouer(Stage stage) {
         manette.setKeys();
         visuel.loaderSol(root);
         root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
-        deplacer();
+        deplacer(stage);
     }
 
-    public void reset() {
+    public void reset(Stage stage) {
         vaisseau.setVitesseX(0);
         vaisseau.setVitesseY(0);
         vaisseau.setX((int) (Math.random() * 1366));
@@ -79,12 +81,20 @@ public class Main extends Application {
         collider.setCrashed(false);
         collider.setLanded(false);
         manette.setKeys();
-        deplacer();
+        deplacer(stage);
     }
 
-    public void loaderMenu() {
+    public void setScene(Stage stage, Scene scene) {
+        stage.setScene(scene);
+    }
+
+    public void loaderMenu(Stage stage) {
         menu.getJouer().setOnAction(a -> {
-            jouer();
+            if (premierePartie) {
+                jouer(stage);
+                premierePartie = false;
+            } else reset(stage);
+            setScene(stage, jeux);
         });
         menu.getExit().setOnAction(b -> {
             System.exit(0);
@@ -93,6 +103,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        loaderMenu(primaryStage);
 
         primaryStage.setTitle("Ragnarr");
         primaryStage.setScene(menu.getScene());    //mettre la scene du menu quand il va en avoir un
