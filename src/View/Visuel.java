@@ -38,6 +38,7 @@ public class Visuel {
     private Image planeteImg = new Image(getClass().getResource("/Ressources/background.jpg").toString());
     private ImageView play = new ImageView(new Image("/Ressources/PLAY.png"));
     private ImageView exit = new ImageView(new Image("/Ressources/EXIT.png"));
+    private ImageView JC = new ImageView(new Image("/Ressources/JC.jpg"));
     private BorderPane root = new BorderPane();
     Scene menuScene = new Scene(root, 1366, 768);
     Polygon pol = new Polygon();
@@ -130,6 +131,10 @@ public class Visuel {
         return quitter;
     }
 
+    public ImageView getJC() {
+        return JC;
+    }
+
     private void ajouterPoints() {
         listePoints.add(new Point2D(0, 768));
         listePoints.add(new Point2D(0, 550));
@@ -170,7 +175,9 @@ public class Visuel {
     }
 
 
+
     public void loaderSol(Pane pane) {
+
         ajouterPoints();
         for (int i = 0; i < listePoints.size(); i++) {
             if (i != listePoints.size() - 1) {

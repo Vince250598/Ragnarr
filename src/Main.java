@@ -3,6 +3,7 @@ import Controller.Manette;
 import Controller.Physique;
 import Model.Planete;
 import Model.Vaisseau;
+import View.Audio;
 import View.Visuel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -12,6 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
+
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -20,14 +23,18 @@ import java.util.Optional;
 public class Main extends Application {
 
     Planete planete = new Planete();
+    Audio audio = new Audio();
     Visuel visuel = new Visuel();
-    Collider collider = new Collider();
+    Collider collider = new Collider(audio);
     Vaisseau vaisseau = new Vaisseau();
     Physique physique = new Physique(vaisseau, visuel, planete);
     Pane root = new Pane();
     Scene jeux = new Scene(root, 1366, 768);
-    Manette manette = new Manette(jeux, physique);
+    Manette manette = new Manette(jeux, physique, audio);
     boolean firstMatch = true;
+    Group JC1 = new Group(visuel.getJC());
+    Scene JC = new Scene(JC1, 1366, 768);
+    int x = 0;
 
     public void deplacer(Stage stage) {
         Timeline deplacement = new Timeline();
@@ -48,7 +55,15 @@ public class Main extends Application {
                         reset(stage);
                     else if (bouton.get() == visuel.getMenu()) {
                         stage.setScene(visuel.getMenuScene());
-                    } else System.exit(0);
+                        audio.getMusiqueJeux().stop();
+                        audio.getMusiqueMenu().play();
+                    } else {
+                        if (x == 0)
+                            stage.setScene(JC);
+                        if (x > 100000)
+                            System.exit(0);
+                        x++;
+                    }
                 }
             }
         });
@@ -92,14 +107,20 @@ public class Main extends Application {
             if (firstMatch) {
                 jouer(stage);
                 firstMatch = false;
-            }else reset(stage);
+            } else reset(stage);
             stage.setScene(jeux);
+            audio.getMusiqueMenu().stop();
+            audio.getCrash().stop();
+            audio.getVictoire().stop();
+            audio.getMoteurRocket().stop();
+            audio.getMusiqueJeux().play();
         });
     }
 
     @Override
     public void start(Stage primaryStage) {
 
+        audio.getMusiqueMenu().play();
         primaryStage.setTitle("Ragnarr");
         primaryStage.setScene(visuel.getMenuScene());    //mettre la scene du menu quand il va en avoir un
         primaryStage.show();
