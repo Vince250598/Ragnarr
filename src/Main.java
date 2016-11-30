@@ -34,7 +34,6 @@ public class Main extends Application {
     boolean firstMatch = true;
     Group JC1 = new Group(visuel.getJC());
     Scene JC = new Scene(JC1, 1366, 768);
-    int x = 0;
 
     public void deplacer(Stage stage) {
         Timeline deplacement = new Timeline();
@@ -58,11 +57,15 @@ public class Main extends Application {
                         audio.getMusiqueJeux().stop();
                         audio.getMusiqueMenu().play();
                     } else {
-                        if (x == 0)
-                            stage.setScene(JC);
-                        if (x > 100000)
-                            System.exit(0);
-                        x++;
+                        //problème de logique ici
+                        stage.setScene(JC);
+                        Timeline troll = new Timeline(new KeyFrame(Duration.millis(1), event -> {
+                            int x = 0;
+                            if (x == 150)
+                                System.exit(0);
+                            x++;
+                        }));
+                        troll.play();
                     }
                 }
             }

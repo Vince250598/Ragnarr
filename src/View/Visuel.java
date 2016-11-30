@@ -2,16 +2,12 @@ package View;
 
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-
+import javafx.scene.shape.*;
+import javafx.scene.paint.*;
 import java.util.Optional;
 import java.util.Vector;
 
@@ -159,10 +155,13 @@ public class Visuel {
         listePoints.add(new Point2D(1300, 650));
         listePoints.add(new Point2D(1366, 500));
         listePoints.add(new Point2D(1366, 768));
-        int i = 0;
-        while (i < listePoints.size()){
-            //créer le polygone à partir des points et le colorier
+
+        int x = 0;
+        while (x < listePoints.size()) {
+            pol.getPoints().addAll(listePoints.get(x).getX(), listePoints.get(x).getY());
+            x++;
         }
+        pol.setFill(Color.BLACK);
     }
 
     public void loaderMenu() {
@@ -175,7 +174,6 @@ public class Visuel {
     }
 
 
-
     public void loaderSol(Pane pane) {
 
         ajouterPoints();
@@ -186,6 +184,7 @@ public class Visuel {
                 pane.getChildren().add(sol.get(i));
             }
         }
+        pane.getChildren().add(pol);
         BackgroundImage bgImg = new BackgroundImage(planeteImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
         Background bg = new Background(bgImg);
