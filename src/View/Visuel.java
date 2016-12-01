@@ -8,6 +8,7 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;
+
 import java.util.Optional;
 import java.util.Vector;
 
@@ -131,7 +132,22 @@ public class Visuel {
         return JC;
     }
 
-    private void ajouterPoints() {
+    public void niveauFacile() {
+        listePoints.add(new Point2D(0, 768));
+        listePoints.add(new Point2D(0, 550));
+        listePoints.add(new Point2D(167, 700));
+        listePoints.add(new Point2D(417, 700));
+        listePoints.add(new Point2D(583, 600));
+        listePoints.add(new Point2D(783, 600));
+        listePoints.add(new Point2D(949, 700));
+        listePoints.add(new Point2D(1199, 700));
+        listePoints.add(new Point2D(1366, 550));
+        listePoints.add(new Point2D(1366, 768));
+
+        couleurSol();
+    }
+
+    public void niveauMoyen() {
         listePoints.add(new Point2D(0, 768));
         listePoints.add(new Point2D(0, 550));
         listePoints.add(new Point2D(69, 600));
@@ -156,6 +172,41 @@ public class Visuel {
         listePoints.add(new Point2D(1366, 500));
         listePoints.add(new Point2D(1366, 768));
 
+        couleurSol();
+    }
+
+    public void niveauDifficile() {
+        listePoints.add(new Point2D(0, 768));
+        listePoints.add(new Point2D(0, 500));
+        listePoints.add(new Point2D(75, 575));
+        listePoints.add(new Point2D(50, 700));
+        listePoints.add(new Point2D(110, 700));
+        listePoints.add(new Point2D(220, 630));
+        listePoints.add(new Point2D(300, 600));
+        listePoints.add(new Point2D(345, 600));
+        listePoints.add(new Point2D(410, 550));
+        listePoints.add(new Point2D(530, 500));
+        listePoints.add(new Point2D(580, 580));
+        listePoints.add(new Point2D(683, 450));
+        listePoints.add(new Point2D(683, 650));
+        listePoints.add(new Point2D(735, 650));
+        listePoints.add(new Point2D(735, 450));
+        listePoints.add(new Point2D(810,300));
+        listePoints.add(new Point2D(870, 350));
+        listePoints.add(new Point2D(940, 475));
+        listePoints.add(new Point2D(1000, 525));
+        listePoints.add(new Point2D(1060, 600));
+        listePoints.add(new Point2D(1120, 425));
+        listePoints.add(new Point2D(1190, 500));
+        listePoints.add(new Point2D(1230, 550));
+        listePoints.add(new Point2D(1280, 550));
+        listePoints.add(new Point2D(1368, 400));
+        listePoints.add(new Point2D(1366, 768));
+
+        couleurSol();
+    }
+
+    private void couleurSol() {
         int x = 0;
         while (x < listePoints.size()) {
             pol.getPoints().addAll(listePoints.get(x).getX(), listePoints.get(x).getY());
@@ -175,8 +226,6 @@ public class Visuel {
 
 
     public void loaderSol(Pane pane) {
-
-        ajouterPoints();
         for (int i = 0; i < listePoints.size(); i++) {
             if (i != listePoints.size() - 1) {
                 sol.add(new Line(listePoints.get(i).getX(), listePoints.get(i).getY(),

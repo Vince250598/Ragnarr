@@ -12,8 +12,8 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -31,7 +31,6 @@ public class Main extends Application {
     Pane root = new Pane();
     Scene jeux = new Scene(root, 1366, 768);
     Manette manette = new Manette(jeux, physique, audio);
-    boolean firstMatch = true;
     Group JC1 = new Group(visuel.getJC());
     Scene JC = new Scene(JC1, 1366, 768);
 
@@ -50,22 +49,18 @@ public class Main extends Application {
                 if (collider.isCrashed())
                     bouton = visuel.getBouton(visuel.getFail());
                 if (bouton != null) {
-                    if (bouton.get() == visuel.getRejouer())
-                        reset(stage);
-                    else if (bouton.get() == visuel.getMenu()) {
+                    if (bouton.get() == visuel.getRejouer()) {
+                        reset();
+                        jouer(stage);
+                    }else if (bouton.get() == visuel.getMenu()) {
                         stage.setScene(visuel.getMenuScene());
                         audio.getMusiqueJeux().stop();
                         audio.getMusiqueMenu().play();
+                        //renvoyer dans le menu du choix du niveau
                     } else {
-                        //problème de logique ici
                         stage.setScene(JC);
-                        Timeline troll = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-                            int x = 0;
-                            if (x == 150)
-                                System.exit(0);
-                            x++;
-                        }));
-                        troll.play();
+                        javax.swing.Timer timer = new javax.swing.Timer(100, event -> System.exit(0));
+                        timer.start();
                     }
                 }
             }
@@ -77,12 +72,14 @@ public class Main extends Application {
 
     public void jouer(Stage stage) {
         manette.setKeys();
+        root.getChildren().clear();
+        visuel.niveauDifficile();
         visuel.loaderSol(root);
         root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
         deplacer(stage);
     }
 
-    public void reset(Stage stage) {
+    public void reset() {
         vaisseau.setVitesseX(0);
         vaisseau.setVitesseY(0);
         vaisseau.setX((int) (Math.random() * 1366));
@@ -94,7 +91,6 @@ public class Main extends Application {
         collider.setCrashed(false);
         collider.setLanded(false);
         manette.setKeys();
-        deplacer(stage);
     }
 
     public void showMenu(Stage stage) {
@@ -107,10 +103,7 @@ public class Main extends Application {
             System.exit(0);
         });
         visuel.getPlay().setOnMouseClicked(event -> {
-            if (firstMatch) {
-                jouer(stage);
-                firstMatch = false;
-            } else reset(stage);
+            jouer(stage);
             stage.setScene(jeux);
             audio.getMusiqueMenu().stop();
             audio.getCrash().stop();
@@ -118,6 +111,12 @@ public class Main extends Application {
             audio.getMoteurRocket().stop();
             audio.getMusiqueJeux().play();
         });
+        Glow glow1 = new Glow(1);
+        visuel.getPlay().setOnMouseEntered(event -> visuel.getPlay().setEffect(glow1));
+        visuel.getPlay().setOnMouseExited(event -> visuel.getPlay().setEffect(null));
+
+        visuel.getExit().setOnMouseEntered(event -> visuel.getExit().setEffect(glow1));
+        visuel.getExit().setOnMouseExited(event -> visuel.getExit().setEffect(null));
     }
 
     @Override
