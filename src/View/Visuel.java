@@ -206,6 +206,46 @@ public class Visuel {
         couleurSol();
     }
 
+    public void niveauDarkSouls(){
+        listePoints.add(new Point2D(0,768));
+        listePoints.add(new Point2D(0,250));
+        listePoints.add(new Point2D(120, 350));
+        listePoints.add(new Point2D(185,470));
+        listePoints.add(new Point2D(95, 470));
+        listePoints.add(new Point2D(145, 570));
+        listePoints.add(new Point2D(195, 570));
+        listePoints.add(new Point2D(195, 590));
+        listePoints.add(new Point2D(270, 610));
+        listePoints.add(new Point2D(360, 700));
+        listePoints.add(new Point2D(450,550));
+        listePoints.add(new Point2D(520, 470));
+        listePoints.add(new Point2D(580, 510));
+        listePoints.add(new Point2D(625, 545));
+        listePoints.add(new Point2D(683, 570));
+        listePoints.add(new Point2D(683, 620));
+        listePoints.add(new Point2D(608, 640));
+        listePoints.add(new Point2D(570, 630));
+        listePoints.add(new Point2D(500, 730));
+        listePoints.add(new Point2D(590,730));
+        listePoints.add(new Point2D(665,710));
+        listePoints.add(new Point2D(700, 740));
+        listePoints.add(new Point2D(800, 620));
+        listePoints.add(new Point2D(880, 550));
+        listePoints.add(new Point2D(950, 350));
+        listePoints.add(new Point2D(1020, 400));
+        listePoints.add(new Point2D(1100, 600));
+        listePoints.add(new Point2D(1190, 700));
+        listePoints.add(new Point2D(1250, 500));
+        listePoints.add(new Point2D(1290, 570));
+        listePoints.add(new Point2D(1335, 570));
+        listePoints.add(new Point2D(1360, 500));
+        listePoints.add(new Point2D(1250, 415));
+        listePoints.add(new Point2D(1366, 325));
+        listePoints.add(new Point2D(1366,768));
+
+        couleurSol();
+    }
+
     private void couleurSol() {
         int x = 0;
         while (x < listePoints.size()) {

@@ -73,7 +73,7 @@ public class Main extends Application {
     public void jouer(Stage stage) {
         manette.setKeys();
         root.getChildren().clear();
-        visuel.niveauDifficile();
+        visuel.niveauDarkSouls();
         visuel.loaderSol(root);
         root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
         deplacer(stage);
