@@ -103,6 +103,7 @@ public class Main extends Application {
             System.exit(0);
         });
         visuel.getPlay().setOnMouseClicked(event -> {
+            reset();
             jouer(stage);
             stage.setScene(jeux);
             audio.getMusiqueMenu().stop();
