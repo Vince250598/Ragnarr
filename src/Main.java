@@ -53,10 +53,9 @@ public class Main extends Application {
                         reset();
                         jouer(stage);
                     }else if (bouton.get() == visuel.getMenu()) {
-                        stage.setScene(visuel.getMenuScene());
+                        stage.setScene(visuel.getLevelScene());
                         audio.getMusiqueJeux().stop();
                         audio.getMusiqueMenu().play();
-                        //renvoyer dans le menu du choix du niveau
                     } else {
                         stage.setScene(JC);
                         javax.swing.Timer timer = new javax.swing.Timer(100, event -> System.exit(0));
@@ -73,7 +72,6 @@ public class Main extends Application {
     public void jouer(Stage stage) {
         manette.setKeys();
         root.getChildren().clear();
-        visuel.niveauDarkSouls();
         visuel.loaderSol(root);
         root.getChildren().addAll(visuel.getRocket(), visuel.getInfo());
         deplacer(stage);
@@ -91,6 +89,8 @@ public class Main extends Application {
         collider.setCrashed(false);
         collider.setLanded(false);
         manette.setKeys();
+        audio.getMusiqueJeux().play();
+        audio.getMusiqueMenu().stop();
     }
 
     public void showMenu(Stage stage) {
@@ -103,14 +103,12 @@ public class Main extends Application {
             System.exit(0);
         });
         visuel.getPlay().setOnMouseClicked(event -> {
-            reset();
-            jouer(stage);
-            stage.setScene(jeux);
-            audio.getMusiqueMenu().stop();
+            stage.setScene(visuel.getLevelScene());
+            visuel.loaderChoixMenu();
+            setDifficulte(stage);
             audio.getCrash().stop();
             audio.getVictoire().stop();
             audio.getMoteurRocket().stop();
-            audio.getMusiqueJeux().play();
         });
         Glow glow1 = new Glow(1);
         visuel.getPlay().setOnMouseEntered(event -> visuel.getPlay().setEffect(glow1));
@@ -118,6 +116,39 @@ public class Main extends Application {
 
         visuel.getExit().setOnMouseEntered(event -> visuel.getExit().setEffect(glow1));
         visuel.getExit().setOnMouseExited(event -> visuel.getExit().setEffect(null));
+    }
+
+    public void setDifficulte(Stage stage){
+        Glow glow1 = new Glow(1);
+        visuel.getEasy().setOnMouseEntered(event -> visuel.getEasy().setEffect(glow1));
+        visuel.getEasy().setOnMouseExited(event -> visuel.getEasy().setEffect(null));
+
+        visuel.getNormal().setOnMouseEntered(event -> visuel.getNormal().setEffect(glow1));
+        visuel.getNormal().setOnMouseExited(event -> visuel.getNormal().setEffect(null));
+
+        visuel.getHard().setOnMouseEntered(event -> visuel.getHard().setEffect(glow1));
+        visuel.getHard().setOnMouseExited(event -> visuel.getHard().setEffect(null));
+
+        visuel.getEasy().setOnMouseClicked(event -> {
+            stage.setScene(jeux);
+            visuel.niveauFacile();
+            reset();
+            jouer(stage);
+        });
+
+        visuel.getNormal().setOnMouseClicked(event -> {
+            stage.setScene(jeux);
+            visuel.niveauMoyen();
+            reset();
+            jouer(stage);
+        });
+
+        visuel.getHard().setOnMouseClicked(event -> {
+            stage.setScene(jeux);
+            visuel.niveauDifficile();
+            reset();
+            jouer(stage);
+        });
     }
 
     @Override
