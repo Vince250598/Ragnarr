@@ -40,13 +40,13 @@ public class Collider {
             if (l.getStartY() != l.getEndY()) {
                 crashed = true;
                 tl.stop();
-            } else if (Math.abs(vaisseau.getAngle()) > 10) {
+            } else if (Math.abs(vaisseau.getAngle()) > 7) {
                 crashed = true;
                 tl.stop();
-            } else if (vaisseau.getVitesseY() > 1.5) {
+            } else if (vaisseau.getVitesseY() > 1) {
                 crashed = true;
                 tl.stop();
-            } else if (vaisseau.getVitesseX() > 1.5) {
+            } else if (Math.abs(vaisseau.getVitesseX()) > 1) {
                 crashed = true;
                 tl.stop();
             } else {
@@ -55,7 +55,7 @@ public class Collider {
             }
             if (crashed)
                 audio.getCrash().play();
-            else if(landed)
+            else if (landed)
                 audio.getVictoire().play();
         }
     }

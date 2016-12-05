@@ -53,7 +53,7 @@ public class Main extends Application {
                         reset();
                         jouer(stage);
                     }else if (bouton.get() == visuel.getMenu()) {
-                        stage.setScene(visuel.getLevelScene());
+                        stage.setScene(visuel.getMenuScene());
                         audio.getMusiqueJeux().stop();
                         audio.getMusiqueMenu().play();
                     } else {
@@ -155,8 +155,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         audio.getMusiqueMenu().play();
-        primaryStage.setTitle("Ragnarr");
-        primaryStage.setScene(visuel.getMenuScene());    //mettre la scene du menu quand il va en avoir un
+        primaryStage.setTitle("Moon Lander");
+        primaryStage.setScene(visuel.getMenuScene());
         primaryStage.show();
         primaryStage.setResizable(false);
 

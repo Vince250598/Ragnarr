@@ -275,6 +275,7 @@ public class Visuel {
 
     private void couleurSol() {
         int x = 0;
+        pol.getPoints().clear();
         while (x < listePoints.size()) {
             pol.getPoints().addAll(listePoints.get(x).getX(), listePoints.get(x).getY());
             x++;
@@ -293,7 +294,7 @@ public class Visuel {
 
 
     public void loaderSol(Pane pane) {
-        pane.getChildren().clear();
+        sol.clear();
         for (int i = 0; i < listePoints.size(); i++) {
             if (i != listePoints.size() - 1) {
                 sol.add(new Line(listePoints.get(i).getX(), listePoints.get(i).getY(),
