@@ -21,6 +21,10 @@ public class Physique {
     private boolean rotationDroite = false;
     private boolean rotationGauche = false;
     private Visuel visuel;
+    private static int multiScore;
+    public static void setMultiScore(int multiScore1) {
+        multiScore = multiScore1;
+    }
 
     public Physique(Vaisseau v, Visuel visuel, Planete planete) {
         this.vaisseau = v;
@@ -29,7 +33,6 @@ public class Physique {
         this.planete = planete;
         setAccelY(getPlanete().getGRAVITE());
         this.visuel = visuel;
-
     }
 
     public void majUI() {
@@ -44,6 +47,7 @@ public class Physique {
     public double calculVitesseY() {
         if (isPressed() && vaisseau.getCarburant() > 0) {
             vaisseau.setCarburant(vaisseau.getCarburant() - 1);
+            vaisseau.setScore(vaisseau.getCarburant() + 500);
             double rad = Math.toRadians(rotation - 90);
             setAccelY(getAccelY() * Math.cos(rad));
             getVaisseau().setVitesseY(getVaisseau().getVitesseY() + (getAccelY() - 0.06));

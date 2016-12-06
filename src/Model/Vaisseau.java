@@ -10,7 +10,8 @@ public class Vaisseau {
     private double carburant;
     private final double CAPACITE_CARB = 500;
     private double angle;
-    private int score;
+    private double score;
+    private double dernierScore;
     private Bounds BV;         //setter les bounds dans le collider
 
     public Vaisseau() {
@@ -19,7 +20,8 @@ public class Vaisseau {
         this.X = (int)(Math.random() * 1366);
         this.Y = 0;
         this.carburant = getCAPACITE_CARB();
-        this.score = 0;
+        this.score = carburant + 500;
+        this.dernierScore = 0;
         this.angle = 0;
     }
 
@@ -80,11 +82,19 @@ public class Vaisseau {
         this.carburant = carburant;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
+    }
+
+    public double getDernierScore() {
+        return dernierScore;
+    }
+
+    public void setDernierScore(double dernierScore) {
+        this.dernierScore = dernierScore;
     }
 }

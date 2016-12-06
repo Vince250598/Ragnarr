@@ -50,15 +50,21 @@ public class Visuel {
     private Scene levelScene = new Scene(level, 1366, 768);
     private Image levelImage = new Image(getClass().getResource("/Ressources/choixMenu.jpg").toString());
     private Label score = new Label("Score: " + vaisseau.getScore());
+    private Label dernierScore = new Label("Dernier Score: " + vaisseau.getDernierScore());
 
 
     public Visuel() {
         getRocket().setScaleX(0.7);
         getRocket().setScaleY(0.7);
+        setSuccess();
+        setFail();
+        vitesseX.setTextFill(Color.WHITE);
+        vitesseY.setTextFill(Color.WHITE);
+        angle.setTextFill(Color.WHITE);
+        carburant.setTextFill(Color.WHITE);
+        score.setTextFill(Color.WHITE);
         essence.getChildren().addAll(carburant, niveauEssence);
         info.getChildren().addAll(vitesseY, vitesseX, angle, essence, score);
-        setFail();
-        setSuccess();
     }
 
     public Scene getLevelScene() {
@@ -89,10 +95,10 @@ public class Visuel {
         return menuScene;
     }
 
-    private void setFail() {
+    public void setFail() {
         fail.setTitle("Fail");
         fail.setHeaderText(null);
-        fail.setContentText("Vous vous êtes crashé!!! Que voulez-vous faire?");
+        fail.setContentText("Vous vous êtes crashé!!! Votre score est de " + (500 + vaisseau.getCarburant()) + " points! Que voulez-vous faire?");
         fail.getButtonTypes().setAll(rejouer, menu, quitter);
     }
 
@@ -100,15 +106,19 @@ public class Visuel {
         return fail;
     }
 
-    private void setSuccess() {
+    public void setSuccess() {
         success.setTitle("Success");
         success.setHeaderText(null);
-        success.setContentText("Vous avez atterri en toute sécurité!!! Que voulez-vous faire?");
+        success.setContentText("Vous avez atterri en toute sécurité!!! Votre score est de " + vaisseau + " points! Que voulez-vous faire?");
         success.getButtonTypes().setAll(rejouer, menu, quitter);
     }
 
     public Alert getSuccess() {
         return success;
+    }
+
+    public Pane getLevel() {
+        return level;
     }
 
     public Optional<ButtonType> getBouton(Alert alert) {
@@ -122,6 +132,14 @@ public class Visuel {
 
     public VBox getInfo() {
         return info;
+    }
+
+    public Label getDernierScore() {
+        dernierScore.setText("Dernier Score: " + vaisseau.getDernierScore());
+        /*dernierScore.setTranslateY(1250);
+        dernierScore.setTranslateY(750);*/
+        dernierScore.setTextFill(Color.WHITE);
+        return dernierScore;
     }
 
     public Label getVitesseX() {

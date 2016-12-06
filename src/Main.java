@@ -43,16 +43,21 @@ public class Main extends Application {
             physique.majUI();
             collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
             if (deplacement.getStatus().equals(Animation.Status.STOPPED)) {
+                vaisseau.setDernierScore(vaisseau.getScore());
+                System.out.println("" + vaisseau.getDernierScore());
                 Optional<ButtonType> bouton = null;
-                if (collider.isLanded())
+                if (collider.isLanded()) {
                     bouton = visuel.getBouton(visuel.getSuccess());
-                if (collider.isCrashed())
+                }
+                if (collider.isCrashed()) {
                     bouton = visuel.getBouton(visuel.getFail());
+                }
                 if (bouton != null) {
                     if (bouton.get() == visuel.getRejouer()) {
                         reset();
                         jouer(stage);
-                    }else if (bouton.get() == visuel.getMenu()) {
+                    } else if (bouton.get() == visuel.getMenu()) {
+                        visuel.getLevel().getChildren().add(visuel.getDernierScore());
                         stage.setScene(visuel.getMenuScene());
                         audio.getMusiqueJeux().stop();
                         audio.getMusiqueMenu().play();
@@ -83,6 +88,7 @@ public class Main extends Application {
         vaisseau.setX((int) (Math.random() * 1366));
         vaisseau.setY(0);
         vaisseau.setCarburant(vaisseau.getCAPACITE_CARB());
+        vaisseau.setScore(0);
         vaisseau.setAngle(0);
         visuel.getRocket().setRotate(0);
         physique.setRotation(0);
@@ -118,7 +124,7 @@ public class Main extends Application {
         visuel.getExit().setOnMouseExited(event -> visuel.getExit().setEffect(null));
     }
 
-    public void setDifficulte(Stage stage){
+    public void setDifficulte(Stage stage) {
         Glow glow1 = new Glow(1);
         visuel.getEasy().setOnMouseEntered(event -> visuel.getEasy().setEffect(glow1));
         visuel.getEasy().setOnMouseExited(event -> visuel.getEasy().setEffect(null));
