@@ -37,6 +37,8 @@ public class Physique {
         visuel.getVitesseY().setText("Vitesse en Y: " + vaisseau.getVitesseY());
         visuel.getAngle().setText("Angle du vaisseau: " + vaisseau.getAngle());
         visuel.getNiveauEssence().setProgress(vaisseau.getCarburant() / vaisseau.getCAPACITE_CARB());
+        visuel.getScore().setText("Score: " + vaisseau.getScore());
+
     }
 
     public double calculVitesseY() {

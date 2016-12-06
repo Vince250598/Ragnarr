@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Collider;
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -15,6 +16,8 @@ import java.util.Vector;
 public class Visuel {
 
     private Vector<Point2D> listePoints = new Vector<>();
+    private Audio audio = new Audio();
+    private Collider collider = new Collider(audio);
     private Vector<Line> sol = new Vector<>();
     private Image img = new Image(getClass().getResource("/Ressources/rocket.png").toString());
     private ImageView rocket = new ImageView(img);
@@ -46,13 +49,14 @@ public class Visuel {
     private Pane level = new Pane(difficulte);
     private Scene levelScene = new Scene(level, 1366, 768);
     private Image levelImage = new Image(getClass().getResource("/Ressources/choixMenu.jpg").toString());
+    private Label score = new Label("Score: " + vaisseau.getScore());
 
 
     public Visuel() {
         getRocket().setScaleX(0.7);
         getRocket().setScaleY(0.7);
         essence.getChildren().addAll(carburant, niveauEssence);
-        info.getChildren().addAll(vitesseY, vitesseX, angle, essence);
+        info.getChildren().addAll(vitesseY, vitesseX, angle, essence, score);
         setFail();
         setSuccess();
     }
@@ -156,6 +160,10 @@ public class Visuel {
         return JC;
     }
 
+    public Label getScore() {
+        return score;
+    }
+
     public void niveauFacile() {
         listePoints.clear();
         listePoints.add(new Point2D(0, 768));
@@ -168,6 +176,7 @@ public class Visuel {
         listePoints.add(new Point2D(1199, 700));
         listePoints.add(new Point2D(1366, 550));
         listePoints.add(new Point2D(1366, 768));
+        Collider.setMultiScore(1);
 
         couleurSol();
     }
@@ -197,6 +206,7 @@ public class Visuel {
         listePoints.add(new Point2D(1300, 650));
         listePoints.add(new Point2D(1366, 500));
         listePoints.add(new Point2D(1366, 768));
+        Collider.setMultiScore(2);
 
         couleurSol();
     }
@@ -229,6 +239,7 @@ public class Visuel {
         listePoints.add(new Point2D(1280, 550));
         listePoints.add(new Point2D(1368, 400));
         listePoints.add(new Point2D(1366, 768));
+        Collider.setMultiScore(3);
 
         couleurSol();
     }
@@ -269,6 +280,7 @@ public class Visuel {
         listePoints.add(new Point2D(1250, 415));
         listePoints.add(new Point2D(1366, 325));
         listePoints.add(new Point2D(1366, 768));
+        Collider.setMultiScore(8);
 
         couleurSol();
     }

@@ -12,6 +12,7 @@ public class Collider {
     private boolean landed = false;
     private Line sol = null;
     private Audio audio;
+    private static int multiScore;
 
     public Collider(Audio audio) {
         this.audio = audio;
@@ -42,15 +43,19 @@ public class Collider {
                 tl.stop();
             } else if (Math.abs(vaisseau.getAngle()) > 7) {
                 crashed = true;
+                vaisseau.setScore(vaisseau.getScore()-(100*multiScore));
                 tl.stop();
             } else if (vaisseau.getVitesseY() > 1) {
                 crashed = true;
+                vaisseau.setScore(vaisseau.getScore()-(100*multiScore));
                 tl.stop();
             } else if (Math.abs(vaisseau.getVitesseX()) > 1) {
                 crashed = true;
+                vaisseau.setScore(vaisseau.getScore()-(100*multiScore));
                 tl.stop();
             } else {
                 landed = true;
+                vaisseau.setScore(vaisseau.getScore()+(100*multiScore));
                 tl.stop();
             }
             if (crashed)
@@ -78,5 +83,9 @@ public class Collider {
 
     public Line getSol() {
         return sol;
+    }
+
+    public static void setMultiScore(int multiScore1) {
+        multiScore = multiScore1;
     }
 }
