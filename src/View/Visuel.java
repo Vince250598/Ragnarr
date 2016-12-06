@@ -214,10 +214,10 @@ public class Visuel {
         listePoints.add(new Point2D(410, 550));
         listePoints.add(new Point2D(530, 500));
         listePoints.add(new Point2D(580, 580));
-        listePoints.add(new Point2D(683, 450));
+        listePoints.add(new Point2D(678, 450));
         listePoints.add(new Point2D(683, 650));
         listePoints.add(new Point2D(735, 650));
-        listePoints.add(new Point2D(735, 450));
+        listePoints.add(new Point2D(740, 450));
         listePoints.add(new Point2D(810, 300));
         listePoints.add(new Point2D(870, 350));
         listePoints.add(new Point2D(940, 475));
