@@ -21,10 +21,6 @@ public class Physique {
     private boolean rotationDroite = false;
     private boolean rotationGauche = false;
     private Visuel visuel;
-    private static int multiScore;
-    public static void setMultiScore(int multiScore1) {
-        multiScore = multiScore1;
-    }
 
     public Physique(Vaisseau v, Visuel visuel, Planete planete) {
         this.vaisseau = v;
@@ -40,7 +36,6 @@ public class Physique {
         visuel.getVitesseY().setText("Vitesse en Y: " + vaisseau.getVitesseY());
         visuel.getAngle().setText("Angle du vaisseau: " + vaisseau.getAngle());
         visuel.getNiveauEssence().setProgress(vaisseau.getCarburant() / vaisseau.getCAPACITE_CARB());
-        visuel.getScore().setText("Score: " + vaisseau.getScore());
 
     }
 
@@ -92,10 +87,6 @@ public class Physique {
         return vaisseau.getX();
     }
 
-    public int getRotation() {
-        return rotation;
-    }
-
     public void setRotation(int rotation) {
         this.rotation = rotation;
     }
@@ -122,14 +113,6 @@ public class Physique {
 
     public double getAccelY() {
         return accelY;
-    }
-
-    public void setVaisseau(Vaisseau vaisseau) {
-        this.vaisseau = vaisseau;
-    }
-
-    public void setPlanete(Planete planete) {
-        this.planete = planete;
     }
 
     public boolean isPressed() {

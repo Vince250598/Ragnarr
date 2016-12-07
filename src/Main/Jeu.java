@@ -1,3 +1,5 @@
+package Main;
+
 import Controller.Collider;
 import Controller.Manette;
 import Controller.Physique;
@@ -12,7 +14,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
-import javafx.scene.effect.Glow;
 import javafx.scene.layout.Pane;
 
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ import javafx.util.Duration;
 
 import java.util.Optional;
 
-public class Main extends Application {
+public class Jeu extends Application {
 
     Planete planete = new Planete();
     Audio audio = new Audio();
@@ -28,11 +29,16 @@ public class Main extends Application {
     Collider collider = new Collider(audio);
     Vaisseau vaisseau = new Vaisseau();
     Physique physique = new Physique(vaisseau, visuel, planete);
+    Jeu jeu = this;
     Pane root = new Pane();
     Scene jeux = new Scene(root, 1366, 768);
-    Manette manette = new Manette(jeux, physique, audio);
+    Manette manette = new Manette(jeux, physique, visuel, audio, this);
     Group JC1 = new Group(visuel.getJC());
     Scene JC = new Scene(JC1, 1366, 768);
+
+    public Scene getJeux() {
+        return jeux;
+    }
 
     public void deplacer(Stage stage) {
         Timeline deplacement = new Timeline();
@@ -43,8 +49,6 @@ public class Main extends Application {
             physique.majUI();
             collider.checkCollision(collider.getSol(), visuel, vaisseau, deplacement);
             if (deplacement.getStatus().equals(Animation.Status.STOPPED)) {
-                vaisseau.setDernierScore(vaisseau.getScore());
-                System.out.println("" + vaisseau.getDernierScore());
                 Optional<ButtonType> bouton = null;
                 if (collider.isLanded()) {
                     bouton = visuel.getBouton(visuel.getSuccess());
@@ -57,7 +61,6 @@ public class Main extends Application {
                         reset();
                         jouer(stage);
                     } else if (bouton.get() == visuel.getMenu()) {
-                        visuel.getLevel().getChildren().add(visuel.getDernierScore());
                         stage.setScene(visuel.getMenuScene());
                         audio.getMusiqueJeux().stop();
                         audio.getMusiqueMenu().play();
@@ -101,60 +104,7 @@ public class Main extends Application {
 
     public void showMenu(Stage stage) {
         visuel.loaderMenu();
-        setBoutons(stage);
-    }
-
-    public void setBoutons(Stage stage) {
-        visuel.getExit().setOnMouseClicked(event -> {
-            System.exit(0);
-        });
-        visuel.getPlay().setOnMouseClicked(event -> {
-            stage.setScene(visuel.getLevelScene());
-            visuel.loaderChoixMenu();
-            setDifficulte(stage);
-            audio.getCrash().stop();
-            audio.getVictoire().stop();
-            audio.getMoteurRocket().stop();
-        });
-        Glow glow1 = new Glow(1);
-        visuel.getPlay().setOnMouseEntered(event -> visuel.getPlay().setEffect(glow1));
-        visuel.getPlay().setOnMouseExited(event -> visuel.getPlay().setEffect(null));
-
-        visuel.getExit().setOnMouseEntered(event -> visuel.getExit().setEffect(glow1));
-        visuel.getExit().setOnMouseExited(event -> visuel.getExit().setEffect(null));
-    }
-
-    public void setDifficulte(Stage stage) {
-        Glow glow1 = new Glow(1);
-        visuel.getEasy().setOnMouseEntered(event -> visuel.getEasy().setEffect(glow1));
-        visuel.getEasy().setOnMouseExited(event -> visuel.getEasy().setEffect(null));
-
-        visuel.getNormal().setOnMouseEntered(event -> visuel.getNormal().setEffect(glow1));
-        visuel.getNormal().setOnMouseExited(event -> visuel.getNormal().setEffect(null));
-
-        visuel.getHard().setOnMouseEntered(event -> visuel.getHard().setEffect(glow1));
-        visuel.getHard().setOnMouseExited(event -> visuel.getHard().setEffect(null));
-
-        visuel.getEasy().setOnMouseClicked(event -> {
-            stage.setScene(jeux);
-            visuel.niveauFacile();
-            reset();
-            jouer(stage);
-        });
-
-        visuel.getNormal().setOnMouseClicked(event -> {
-            stage.setScene(jeux);
-            visuel.niveauMoyen();
-            reset();
-            jouer(stage);
-        });
-
-        visuel.getHard().setOnMouseClicked(event -> {
-            stage.setScene(jeux);
-            visuel.niveauDifficile();
-            reset();
-            jouer(stage);
-        });
+        manette.setBoutons(stage);
     }
 
     @Override

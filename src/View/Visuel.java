@@ -1,8 +1,8 @@
 package View;
 
-import Controller.Collider;
 import Model.Vaisseau;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -16,8 +16,6 @@ import java.util.Vector;
 public class Visuel {
 
     private Vector<Point2D> listePoints = new Vector<>();
-    private Audio audio = new Audio();
-    private Collider collider = new Collider(audio);
     private Vector<Line> sol = new Vector<>();
     private Image img = new Image(getClass().getResource("/Ressources/rocket.png").toString());
     private ImageView rocket = new ImageView(img);
@@ -32,7 +30,7 @@ public class Visuel {
     private Alert fail = new Alert(Alert.AlertType.INFORMATION);
     private Alert success = new Alert(Alert.AlertType.INFORMATION);
     private ButtonType rejouer = new ButtonType("Rejouer");
-    private ButtonType menu = new ButtonType("Menu");           //régler quand le menu sera implémenté
+    private ButtonType menu = new ButtonType("Menu");
     private ButtonType quitter = new ButtonType("Quitter");
     private Image menuImg = new Image(getClass().getResource("/Ressources/Menu.jpg").toString());
     private Image planeteImg = new Image(getClass().getResource("/Ressources/background.jpg").toString());
@@ -45,12 +43,12 @@ public class Visuel {
     private ImageView easy = new ImageView(new Image(getClass().getResource("/Ressources/EASY.png").toString()));
     private ImageView normal = new ImageView(new Image(getClass().getResource("/Ressources/NORMAL.png").toString()));
     private ImageView hard = new ImageView(new Image(getClass().getResource("/Ressources/HARD.png").toString()));
+    private ImageView darkSouls = new ImageView(new Image(getClass().getResource("/Ressources/DARK SOULS.png").toString()));
     private HBox difficulte = new HBox(easy, normal, hard);
-    private Pane level = new Pane(difficulte);
+    private VBox mode = new VBox(difficulte, darkSouls);
+    private Pane level = new Pane(mode);
     private Scene levelScene = new Scene(level, 1366, 768);
     private Image levelImage = new Image(getClass().getResource("/Ressources/choixMenu.jpg").toString());
-    private Label score = new Label("Score: " + vaisseau.getScore());
-    private Label dernierScore = new Label("Dernier Score: " + vaisseau.getDernierScore());
 
 
     public Visuel() {
@@ -62,9 +60,8 @@ public class Visuel {
         vitesseY.setTextFill(Color.WHITE);
         angle.setTextFill(Color.WHITE);
         carburant.setTextFill(Color.WHITE);
-        score.setTextFill(Color.WHITE);
         essence.getChildren().addAll(carburant, niveauEssence);
-        info.getChildren().addAll(vitesseY, vitesseX, angle, essence, score);
+        info.getChildren().addAll(vitesseY, vitesseX, angle, essence);
     }
 
     public Scene getLevelScene() {
@@ -83,6 +80,10 @@ public class Visuel {
         return hard;
     }
 
+    public ImageView getDarkSouls() {
+        return darkSouls;
+    }
+
     public ImageView getPlay() {
         return play;
     }
@@ -98,7 +99,7 @@ public class Visuel {
     public void setFail() {
         fail.setTitle("Fail");
         fail.setHeaderText(null);
-        fail.setContentText("Vous vous êtes crashé!!! Votre score est de " + (500 + vaisseau.getCarburant()) + " points! Que voulez-vous faire?");
+        fail.setContentText("Vous vous êtes crashé!!! Que voulez-vous faire?");
         fail.getButtonTypes().setAll(rejouer, menu, quitter);
     }
 
@@ -109,16 +110,12 @@ public class Visuel {
     public void setSuccess() {
         success.setTitle("Success");
         success.setHeaderText(null);
-        success.setContentText("Vous avez atterri en toute sécurité!!! Votre score est de " + vaisseau + " points! Que voulez-vous faire?");
+        success.setContentText("Vous avez atterri en toute sécurité!!! Que voulez-vous faire?");
         success.getButtonTypes().setAll(rejouer, menu, quitter);
     }
 
     public Alert getSuccess() {
         return success;
-    }
-
-    public Pane getLevel() {
-        return level;
     }
 
     public Optional<ButtonType> getBouton(Alert alert) {
@@ -132,14 +129,6 @@ public class Visuel {
 
     public VBox getInfo() {
         return info;
-    }
-
-    public Label getDernierScore() {
-        dernierScore.setText("Dernier Score: " + vaisseau.getDernierScore());
-        /*dernierScore.setTranslateY(1250);
-        dernierScore.setTranslateY(750);*/
-        dernierScore.setTextFill(Color.WHITE);
-        return dernierScore;
     }
 
     public Label getVitesseX() {
@@ -170,16 +159,8 @@ public class Visuel {
         return menu;
     }
 
-    public ButtonType getQuitter() {
-        return quitter;
-    }
-
     public ImageView getJC() {
         return JC;
-    }
-
-    public Label getScore() {
-        return score;
     }
 
     public void niveauFacile() {
@@ -194,7 +175,6 @@ public class Visuel {
         listePoints.add(new Point2D(1199, 700));
         listePoints.add(new Point2D(1366, 550));
         listePoints.add(new Point2D(1366, 768));
-        Collider.setMultiScore(1);
 
         couleurSol();
     }
@@ -224,7 +204,6 @@ public class Visuel {
         listePoints.add(new Point2D(1300, 650));
         listePoints.add(new Point2D(1366, 500));
         listePoints.add(new Point2D(1366, 768));
-        Collider.setMultiScore(2);
 
         couleurSol();
     }
@@ -257,7 +236,6 @@ public class Visuel {
         listePoints.add(new Point2D(1280, 550));
         listePoints.add(new Point2D(1368, 400));
         listePoints.add(new Point2D(1366, 768));
-        Collider.setMultiScore(3);
 
         couleurSol();
     }
@@ -266,25 +244,24 @@ public class Visuel {
         listePoints.add(new Point2D(0, 768));
         listePoints.add(new Point2D(0, 250));
         listePoints.add(new Point2D(120, 350));
-        listePoints.add(new Point2D(185, 470));
-        listePoints.add(new Point2D(95, 470));
-        listePoints.add(new Point2D(145, 570));
         listePoints.add(new Point2D(195, 570));
-        listePoints.add(new Point2D(195, 590));
-        listePoints.add(new Point2D(270, 610));
-        listePoints.add(new Point2D(360, 700));
-        listePoints.add(new Point2D(450, 550));
-        listePoints.add(new Point2D(520, 470));
-        listePoints.add(new Point2D(580, 510));
-        listePoints.add(new Point2D(625, 545));
-        listePoints.add(new Point2D(683, 570));
-        listePoints.add(new Point2D(683, 620));
-        listePoints.add(new Point2D(608, 640));
-        listePoints.add(new Point2D(570, 630));
-        listePoints.add(new Point2D(500, 730));
-        listePoints.add(new Point2D(590, 730));
-        listePoints.add(new Point2D(665, 710));
-        listePoints.add(new Point2D(700, 740));
+        listePoints.add(new Point2D(195, 610));
+        listePoints.add(new Point2D(300, 720));
+        listePoints.add(new Point2D(400, 730));
+        listePoints.add(new Point2D(420, 700));
+        listePoints.add(new Point2D(450, 750));
+        listePoints.add(new Point2D(600, 750));
+        listePoints.add(new Point2D(570, 725));
+        listePoints.add(new Point2D(500, 650));
+        listePoints.add(new Point2D(450, 600));
+        listePoints.add(new Point2D(400, 610));
+        listePoints.add(new Point2D(300, 575));
+        listePoints.add(new Point2D(380, 530));
+        listePoints.add(new Point2D(500, 500));
+        listePoints.add(new Point2D(590, 550));
+        listePoints.add(new Point2D(665, 625));
+        listePoints.add(new Point2D(700, 700));
+        listePoints.add(new Point2D(740, 740));
         listePoints.add(new Point2D(800, 620));
         listePoints.add(new Point2D(880, 550));
         listePoints.add(new Point2D(950, 350));
@@ -296,9 +273,9 @@ public class Visuel {
         listePoints.add(new Point2D(1335, 570));
         listePoints.add(new Point2D(1360, 500));
         listePoints.add(new Point2D(1250, 415));
+        listePoints.add(new Point2D(1200, 420));
         listePoints.add(new Point2D(1366, 325));
         listePoints.add(new Point2D(1366, 768));
-        Collider.setMultiScore(8);
 
         couleurSol();
     }
@@ -345,7 +322,9 @@ public class Visuel {
         Background bg = new Background(bgImg);
         level.setBackground(bg);
         difficulte.setSpacing(50);
-        difficulte.setTranslateX(249.5);
-        difficulte.setTranslateY(340);
+        mode.setAlignment(Pos.CENTER);
+        mode.setSpacing(20);
+        mode.setTranslateX(249.5);
+        mode.setTranslateY(304);
     }
 }

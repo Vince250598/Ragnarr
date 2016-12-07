@@ -12,7 +12,6 @@ public class Vaisseau {
     private double angle;
     private double score;
     private double dernierScore;
-    private Bounds BV;         //setter les bounds dans le collider
 
     public Vaisseau() {
         this.vitesseX = 0;
@@ -23,10 +22,6 @@ public class Vaisseau {
         this.score = carburant + 500;
         this.dernierScore = 0;
         this.angle = 0;
-    }
-
-    public Bounds getBV() {
-        return BV;
     }
 
     public double getAngle() {
@@ -88,13 +83,5 @@ public class Vaisseau {
 
     public void setScore(double score) {
         this.score = score;
-    }
-
-    public double getDernierScore() {
-        return dernierScore;
-    }
-
-    public void setDernierScore(double dernierScore) {
-        this.dernierScore = dernierScore;
     }
 }
