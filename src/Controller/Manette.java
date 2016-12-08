@@ -53,9 +53,6 @@ public class Manette {
         visuel.getHard().setOnMouseEntered(event -> visuel.getHard().setEffect(glow1));
         visuel.getHard().setOnMouseExited(event -> visuel.getHard().setEffect(null));
 
-        visuel.getDarkSouls().setOnMouseEntered(event -> visuel.getDarkSouls().setEffect(glow1));
-        visuel.getDarkSouls().setOnMouseExited(event -> visuel.getDarkSouls().setEffect(null));
-
         visuel.getEasy().setOnMouseClicked(event -> {
             stage.setScene(jeu.getJeux());
             visuel.niveauFacile();
@@ -73,13 +70,6 @@ public class Manette {
         visuel.getHard().setOnMouseClicked(event -> {
             stage.setScene(jeu.getJeux());
             visuel.niveauDifficile();
-            jeu.reset();
-            jeu.jouer(stage);
-        });
-
-        visuel.getDarkSouls().setOnMouseClicked(event -> {
-            stage.setScene(jeu.getJeux());
-            visuel.niveauDarkSouls();
             jeu.reset();
             jeu.jouer(stage);
         });

@@ -19,7 +19,8 @@ public class Collider {
 
     public double locationVaisseau(Visuel visuel) {
         for (int i = 0; i < visuel.getSol().size(); i++) {
-            if (visuel.getSol().get(i).getStartX() <= visuel.getRocket().getX() + 20.65 /*centre du vaisseau*/ && visuel.getSol().get(i).getEndX() >= visuel.getRocket().getX() + 20.65) {
+            if (visuel.getSol().get(i).getStartX() <= visuel.getRocket().getX() + 20.65 /*centre du vaisseau*/
+                    && visuel.getSol().get(i).getEndX() >= visuel.getRocket().getX() + 20.65) {
                 double X = visuel.getRocket().getX() + 20.65;
                 sol = visuel.getSol().get(i);
                 return X;
@@ -46,7 +47,7 @@ public class Collider {
             } else if (vaisseau.getVitesseY() > 1) {
                 crashed = true;
                 tl.stop();
-            } else if (Math.abs(vaisseau.getVitesseX()) > 1) {
+            } else if (Math.abs(vaisseau.getVitesseX()) > 0.25) {
                 crashed = true;
                 tl.stop();
             } else {

@@ -43,10 +43,8 @@ public class Visuel {
     private ImageView easy = new ImageView(new Image(getClass().getResource("/Ressources/EASY.png").toString()));
     private ImageView normal = new ImageView(new Image(getClass().getResource("/Ressources/NORMAL.png").toString()));
     private ImageView hard = new ImageView(new Image(getClass().getResource("/Ressources/HARD.png").toString()));
-    private ImageView darkSouls = new ImageView(new Image(getClass().getResource("/Ressources/DARK SOULS.png").toString()));
     private HBox difficulte = new HBox(easy, normal, hard);
-    private VBox mode = new VBox(difficulte, darkSouls);
-    private Pane level = new Pane(mode);
+    private Pane level = new Pane(difficulte);
     private Scene levelScene = new Scene(level, 1366, 768);
     private Image levelImage = new Image(getClass().getResource("/Ressources/choixMenu.jpg").toString());
 
@@ -78,10 +76,6 @@ public class Visuel {
 
     public ImageView getHard() {
         return hard;
-    }
-
-    public ImageView getDarkSouls() {
-        return darkSouls;
     }
 
     public ImageView getPlay() {
@@ -240,46 +234,6 @@ public class Visuel {
         couleurSol();
     }
 
-    public void niveauDarkSouls() {
-        listePoints.add(new Point2D(0, 768));
-        listePoints.add(new Point2D(0, 250));
-        listePoints.add(new Point2D(120, 350));
-        listePoints.add(new Point2D(195, 570));
-        listePoints.add(new Point2D(195, 610));
-        listePoints.add(new Point2D(300, 720));
-        listePoints.add(new Point2D(400, 730));
-        listePoints.add(new Point2D(420, 700));
-        listePoints.add(new Point2D(450, 750));
-        listePoints.add(new Point2D(600, 750));
-        listePoints.add(new Point2D(570, 725));
-        listePoints.add(new Point2D(500, 650));
-        listePoints.add(new Point2D(450, 600));
-        listePoints.add(new Point2D(400, 610));
-        listePoints.add(new Point2D(300, 575));
-        listePoints.add(new Point2D(380, 530));
-        listePoints.add(new Point2D(500, 500));
-        listePoints.add(new Point2D(590, 550));
-        listePoints.add(new Point2D(665, 625));
-        listePoints.add(new Point2D(700, 700));
-        listePoints.add(new Point2D(740, 740));
-        listePoints.add(new Point2D(800, 620));
-        listePoints.add(new Point2D(880, 550));
-        listePoints.add(new Point2D(950, 350));
-        listePoints.add(new Point2D(1020, 400));
-        listePoints.add(new Point2D(1100, 600));
-        listePoints.add(new Point2D(1190, 700));
-        listePoints.add(new Point2D(1250, 500));
-        listePoints.add(new Point2D(1290, 570));
-        listePoints.add(new Point2D(1335, 570));
-        listePoints.add(new Point2D(1360, 500));
-        listePoints.add(new Point2D(1250, 415));
-        listePoints.add(new Point2D(1200, 420));
-        listePoints.add(new Point2D(1366, 325));
-        listePoints.add(new Point2D(1366, 768));
-
-        couleurSol();
-    }
-
     private void couleurSol() {
         int x = 0;
         pol.getPoints().clear();
@@ -322,9 +276,7 @@ public class Visuel {
         Background bg = new Background(bgImg);
         level.setBackground(bg);
         difficulte.setSpacing(50);
-        mode.setAlignment(Pos.CENTER);
-        mode.setSpacing(20);
-        mode.setTranslateX(249.5);
-        mode.setTranslateY(304);
+        difficulte.setTranslateX(249.5);
+        difficulte.setTranslateY(304);
     }
 }
